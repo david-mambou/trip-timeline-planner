@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mode: MyString
+  departure_time: 2022-07-21 03:18:18
+  arrival_time: 2022-07-21 03:18:18
+  pickup_point: MyString
+  price: 1.5
+
+two:
+  mode: MyString
+  departure_time: 2022-07-21 03:18:18
+  arrival_time: 2022-07-21 03:18:18
+  pickup_point: MyString
+  price: 1.5
