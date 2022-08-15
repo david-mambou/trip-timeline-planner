@@ -5,3 +5,60 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+# create two trips
+
+trip1 = Trip.create(name: "Thailand")
+trip2 = Trip.create(name: "Tohoku")
+
+# create stays
+
+stay1 = Stay.create(name: "Beach Hotel Patong", price: 1200)
+stay2 = Stay.create(name: "Maha Nakhon Hotel", price: 3000)
+stay3 = Stay.create(name: "The Hill Chiang Mai", price: 1500)
+stay4 = Stay.create(name: "Capsule First Sendai", price: 2500)
+stay5 = Stay.create(name: "Business Inn Yamagata", price: 6500)
+
+# create stops
+
+stop1 = Stop.create(name: "Phuket", start_day: Date.new(2024, 4, 8), end_day: Date.new(2024, 4, 14))
+stop1.stay = Stay.where(name: "Beach Hotel Patong").first
+stop2 = Stop.create(name: "Chiang Mai", start_day: Date.new(2024, 4, 14), end_day: Date.new(2024, 4, 17))
+stop2.stay = Stay.where(name: "The Hill Chiang Mai").first
+stop3 = Stop.create(name: "Bangkok", start_day: Date.new(2024, 4, 17), end_day: Date.new(2024, 4, 30))
+stop3.stay = Stay.where(name: "Maha Nakhon Hotel").first
+
+# associate stops to trips
+
+trip1.stops << [stop1, stop2, stop3]
+
+
+# create activities
+
+activity1 = Activity.create(name: "Phuket Big Buddha", price: 600)
+activity7 = Activity.create(name: "Freedom Beach", price: 100)
+activity2 = Activity.create(name: "Ayutthaya", price: 1100)
+activity8 = Activity.create(name: "Thai Royal Palace", price: 3000)
+activity3 = Activity.create(name: "Doi Inthanon", price: 900)
+activity4 = Activity.create(name: "Matsushima", price: 1500)
+activity5 = Activity.create(name: "Zao Fox Village", price: 2200)
+activity6 = Activity.create(name: "Yamadera", price: 1300)
+
+# associate activities to stops
+
+stop1.activities << [activity1, activity7]
+stop2.activities << activity3
+stop3.activities << [activity2, activity8]
+
+# create transfers
+
+transfer1 = Transfer.create(mode: "flight", departure_time: DateTime.new(2024, 4, 14, 10, 25, 0), arrival_time: DateTime.new(2024, 4, 14, 13, 45, 0), price: 4000)
+transfer2 = Transfer.create(mode: "train", departure_time: DateTime.new(2024, 4, 17, 6, 0, 0), arrival_time: DateTime.new(2024, 4, 14, 17, 30, 0), price: 6000)
+
+# associate transfers to stops
+
+stop1.transfers << transfer1
+stop2.transfers << [transfer1, transfer2]
+stop3.transfers << transfer2
+
+print("Successfully seeded!")

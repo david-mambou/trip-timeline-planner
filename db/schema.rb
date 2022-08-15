@@ -24,20 +24,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_25_152327) do
   create_table "stays", force: :cascade do |t|
     t.string "name"
     t.float "price"
-    t.bigint "stop_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["stop_id"], name: "index_stays_on_stop_id"
   end
 
   create_table "stops", force: :cascade do |t|
+    t.string "name"
     t.bigint "trip_id", null: false
     t.date "start_day"
     t.date "end_day"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "stays_id"
-    t.index ["stays_id"], name: "index_stops_on_stays_id"
+    t.bigint "stay_id"
+    t.index ["stay_id"], name: "index_stops_on_stay_id"
     t.index ["trip_id"], name: "index_stops_on_trip_id"
   end
 
@@ -75,7 +74,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_25_152327) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "stays", "stops"
-  add_foreign_key "stops", "stays", column: "stays_id"
+  add_foreign_key "stops", "stays"
   add_foreign_key "stops", "trips"
 end
