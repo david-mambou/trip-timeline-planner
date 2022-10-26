@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  root 'components#index'
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  root 'site#index'
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  namespace :api do
+    resources :trips, only: %i(index)
+  end
 end

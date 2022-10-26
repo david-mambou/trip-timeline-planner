@@ -8,7 +8,7 @@ const { sassPlugin } = require('esbuild-sass-plugin')
 require('esbuild')
   .build({
     entryPoints: [
-      './application.ts',
+      './application.tsx',
     ],
     bundle: true,
     outdir: path.join(process.cwd(), 'app/assets/builds'),
@@ -17,6 +17,7 @@ require('esbuild')
     minify: optimize,
     sourcemap: true,
     watch: process.argv.includes("--watch"),
+    loader: { '.js': 'jsx' },
     plugins: [
       importGlob(),
       sassPlugin({ cache: true }),
