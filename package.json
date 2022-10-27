@@ -16,7 +16,10 @@
   },
   "scripts": {
     "build": "node esbuild.config.js",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint-files": "eslint --cache --ignore-path ./.gitignore --fix",
+    "lint-staged": "node_modules/.bin/lint-staged",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@types/react": "^18.0.17",
@@ -30,6 +33,8 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.31.10",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "prettier": "2.7.1",
     "typescript": "^4.8.4"
   }
