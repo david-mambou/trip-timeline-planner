@@ -4,9 +4,7 @@ import Layout from "./layout/AppLayout";
 export default function App() {
   return (
     <ChakraProvider>
-      <Layout>
-        App rendering
-      </Layout>
+      <Layout>App rendering</Layout>
     </ChakraProvider>
-  )
+  );
 }

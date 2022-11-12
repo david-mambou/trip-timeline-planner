@@ -1,3 +1,3 @@
 export default function Trips() {
-  return <div>List of trips</div>
+  return <div>List of trips</div>;
 }
