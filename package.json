@@ -26,6 +26,8 @@
     "@types/react-dom": "^18.0.6",
     "@typescript-eslint/eslint-plugin": "^5.41.0",
     "@typescript-eslint/parser": "^5.41.0",
+    "esbuild-plugin-import-glob": "^0.1.1",
+    "esbuild-sass-plugin": "^2.4.0",
     "eslint": "^8.26.0",
     "eslint-config-standard-with-typescript": "^23.0.0",
     "eslint-plugin-import": "^2.26.0",
