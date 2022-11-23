@@ -1,10 +1,10 @@
-import { ChakraProvider } from "@chakra-ui/react";
-import Layout from "./layout/AppLayout";
+import { Route, Routes } from "react-router-dom";
+import Trips from "./Trips";
 
 export default function App() {
   return (
-    <ChakraProvider>
-      <Layout>App rendering</Layout>
-    </ChakraProvider>
+    <Routes>
+      <Route path="trips/*" element={<Trips />} />
+    </Routes>
   );
 }
