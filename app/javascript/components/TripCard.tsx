@@ -13,7 +13,6 @@ export default function TripCard({ trip }: TripCardProps) {
         <Heading mt={5} size="md">
           {trip.name}
         </Heading>
-        {/* <Text>{trip.stops[0]}</Text> */}
       </CardBody>
     </Card>
   );
