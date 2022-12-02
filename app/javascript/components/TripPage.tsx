@@ -7,6 +7,7 @@ import { Trip } from "./Trips";
 export default function TripPage() {
   const [trip, setTrip] = useState<Trip>();
   const [stops, setStops] = useState();
+  const [stays, setStays] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -32,6 +33,15 @@ export default function TripPage() {
         setIsError(true);
         console.error(error);
       }
+      try {
+        const response = await window.fetch(`/api/stays`);
+        if (!response.ok) throw Error(response.statusText);
+        const data = await response.json();
+        setStays(data);
+      } catch (error) {
+        setIsError(true);
+        console.error(error);
+      }
 
       setIsLoading(false);
     };
@@ -46,7 +56,12 @@ export default function TripPage() {
         <TripIntroCard trip={trip} />
         <VStack>
           {stops?.map((stop, idx) => (
-            <div key={idx}>{stop.name}</div>
+            <>
+              <h3 key={idx}>{stop.name}</h3>
+              <div>Start: {stop.start_day}</div>
+              <div>End: {stop.end_day}</div>
+              <div>Staying at: {stays?.find((s) => s.id === stop.stay_id).name}</div>
+            </>
           ))}
         </VStack>
       </>
