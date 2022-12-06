@@ -6,8 +6,9 @@ import { Trip } from "./Trips";
 
 export default function TripPage() {
   const [trip, setTrip] = useState<Trip>();
-  const [stops, setStops] = useState();
-  const [stays, setStays] = useState();
+  const [stops, setStops] = useState([]);
+  const [stays, setStays] = useState([]);
+  const [activities, setActivities] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -49,8 +50,28 @@ export default function TripPage() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchActivities = () => {
+      stops?.map(async (stop) => {
+        try {
+          const response = await window.fetch(`/api/stops/${stop.id}/activities`);
+          if (!response.ok) throw Error(response.statusText);
+          const data = await response.json();
+          setActivities((prev) => ({
+            ...prev,
+            [stop.id]: data,
+          }));
+        } catch (error) {
+          setIsError(true);
+          console.error(error);
+        }
+      });
+    };
+
+    fetchActivities();
+  }, [stops]);
+
   if (trip) {
-    console.log(stops);
     return (
       <>
         <TripIntroCard trip={trip} />
@@ -60,7 +81,11 @@ export default function TripPage() {
               <h3 key={idx}>{stop.name}</h3>
               <div>Start: {stop.start_day}</div>
               <div>End: {stop.end_day}</div>
-              <div>Staying at: {stays?.find((s) => s.id === stop.stay_id).name}</div>
+              <div>Staying at: {stays?.find((s) => s.id === stop.stay_id)?.name}</div>
+              {console.log(activities)}
+              {activities[stop.id] && (
+                <div>Activities: {activities[stop.id].map((activity) => activity.name).join(", ")}</div>
+              )}
             </>
           ))}
         </VStack>
