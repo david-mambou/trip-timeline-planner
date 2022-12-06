@@ -4,11 +4,32 @@ import { useParams } from "react-router-dom";
 import TripIntroCard from "./TripIntroCard";
 import { Trip } from "./Trips";
 
+type Stop = {
+  id: number;
+  name: string;
+  stay_id: number;
+  trip_id: number;
+  start_day: string;
+  end_day: string;
+};
+
+type Stay = {
+  id: number;
+  name: string;
+  price: number;
+};
+
+type Activity = {
+  id: number;
+  name: string;
+  price: number;
+};
+
 export default function TripPage() {
   const [trip, setTrip] = useState<Trip>();
-  const [stops, setStops] = useState([]);
-  const [stays, setStays] = useState([]);
-  const [activities, setActivities] = useState({});
+  const [stops, setStops] = useState<Stop[]>([]);
+  const [stays, setStays] = useState<Stay[]>([]);
+  const [activities, setActivities] = useState<{ [index: number]: Activity[] }>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
