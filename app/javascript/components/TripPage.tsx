@@ -11,6 +11,8 @@ type Stop = {
   trip_id: number;
   start_day: string;
   end_day: string;
+  inbound_id?: number;
+  outbound_id?: number;
 };
 
 type Stay = {
@@ -25,10 +27,20 @@ type Activity = {
   price: number;
 };
 
+type Transfer = {
+  id: number;
+  mode: string;
+  departure_time: string;
+  arrival_time: string;
+  pickup_point: string;
+  price: number;
+};
+
 export default function TripPage() {
   const [trip, setTrip] = useState<Trip>();
   const [stops, setStops] = useState<Stop[]>([]);
   const [stays, setStays] = useState<Stay[]>([]);
+  const [transfers, setTransfers] = useState<Transfer[]>([]);
   const [activities, setActivities] = useState<{ [index: number]: Activity[] }>({});
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -60,6 +72,15 @@ export default function TripPage() {
         if (!response.ok) throw Error(response.statusText);
         const data = await response.json();
         setStays(data);
+      } catch (error) {
+        setIsError(true);
+        console.error(error);
+      }
+      try {
+        const response = await window.fetch(`/api/transfers`);
+        if (!response.ok) throw Error(response.statusText);
+        const data = await response.json();
+        setTransfers(data);
       } catch (error) {
         setIsError(true);
         console.error(error);
@@ -106,6 +127,7 @@ export default function TripPage() {
               {activities[stop.id] && (
                 <div>Activities: {activities[stop.id].map((activity) => activity.name).join(", ")}</div>
               )}
+              {stop.outbound_id && <div>Leaving by: {transfers?.find((t) => t.id === stop.outbound_id)?.mode}</div>}
             </>
           ))}
         </VStack>

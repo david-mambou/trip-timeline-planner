@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get 'trips/:id', to: 'site#index'
 
   namespace :api do
+    resources :transfers, only: %i(index)
     resources :stays, only: %i(index)
     resources :activities, only: %i(index)
     resources :stops_activities, only: %i(index)
