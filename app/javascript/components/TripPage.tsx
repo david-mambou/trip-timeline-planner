@@ -103,7 +103,6 @@ export default function TripPage() {
               <div>Start: {stop.start_day}</div>
               <div>End: {stop.end_day}</div>
               <div>Staying at: {stays?.find((s) => s.id === stop.stay_id)?.name}</div>
-              {console.log(activities)}
               {activities[stop.id] && (
                 <div>Activities: {activities[stop.id].map((activity) => activity.name).join(", ")}</div>
               )}

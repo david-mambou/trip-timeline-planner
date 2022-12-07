@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_25_152327) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_06_081721) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -36,6 +36,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_25_152327) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "stay_id"
+    t.bigint "inbound_id"
+    t.bigint "outbound_id"
+    t.index ["inbound_id"], name: "index_stops_on_inbound_id"
+    t.index ["outbound_id"], name: "index_stops_on_outbound_id"
     t.index ["stay_id"], name: "index_stops_on_stay_id"
     t.index ["trip_id"], name: "index_stops_on_trip_id"
   end
@@ -47,15 +51,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_25_152327) do
     t.datetime "updated_at", null: false
     t.index ["activity_id"], name: "index_stops_activities_on_activity_id"
     t.index ["stop_id"], name: "index_stops_activities_on_stop_id"
-  end
-
-  create_table "stops_transfers", force: :cascade do |t|
-    t.bigint "stop_id"
-    t.bigint "transfer_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["stop_id"], name: "index_stops_transfers_on_stop_id"
-    t.index ["transfer_id"], name: "index_stops_transfers_on_transfer_id"
   end
 
   create_table "transfers", force: :cascade do |t|
@@ -75,5 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_25_152327) do
   end
 
   add_foreign_key "stops", "stays"
+  add_foreign_key "stops", "transfers", column: "inbound_id"
+  add_foreign_key "stops", "transfers", column: "outbound_id"
   add_foreign_key "stops", "trips"
 end
