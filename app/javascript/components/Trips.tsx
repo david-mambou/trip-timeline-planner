@@ -1,11 +1,9 @@
 import { SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
 import TripCard from "./TripCard";
-import TripForm from "./TripForm";
-import TripPage from "./TripPage";
 
 export type Trip = {
+  id?: number;
   name: string;
 };
 

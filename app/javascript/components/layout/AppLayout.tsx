@@ -22,15 +22,7 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import {
-  BellIcon,
-  ChevronDownIcon,
-  GlobeAltIcon,
-  MenuIcon,
-  TrendingUpIcon,
-  StarIcon,
-  CogIcon,
-} from "@heroicons/react/outline";
+import { BellIcon, ChevronDownIcon, GlobeAltIcon, MenuIcon } from "@heroicons/react/outline";
 import { IconType } from "react-icons";
 
 interface LinkItemProps {
