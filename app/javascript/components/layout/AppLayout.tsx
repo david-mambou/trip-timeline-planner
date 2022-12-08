@@ -25,7 +25,7 @@ import {
 import {
   BellIcon,
   ChevronDownIcon,
-  HomeIcon,
+  GlobeAltIcon,
   MenuIcon,
   TrendingUpIcon,
   StarIcon,
@@ -36,13 +36,9 @@ import { IconType } from "react-icons";
 interface LinkItemProps {
   name: string;
   icon: IconType;
+  href?: string;
 }
-const LinkItems: Array<LinkItemProps> = [
-  { name: "Home", icon: HomeIcon },
-  { name: "Trending", icon: TrendingUpIcon },
-  { name: "Favourites", icon: StarIcon },
-  { name: "Settings", icon: CogIcon },
-];
+const LinkItems: Array<LinkItemProps> = [{ name: "Trips", icon: GlobeAltIcon, href: "/trips" }];
 
 export default function SidebarWithHeader({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -94,7 +90,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} {...link}>
           {link.name}
         </NavItem>
       ))}
@@ -105,10 +101,11 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
 interface NavItemProps extends FlexProps {
   icon: IconType;
   children: string;
+  href?: string;
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ href = "#", icon, children, ...rest }: NavItemProps) => {
   return (
-    <Link href="#" style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
+    <Link href={href} style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
       <Flex
         align="center"
         p="4"
