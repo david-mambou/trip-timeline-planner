@@ -1,6 +1,9 @@
 import { SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import TripCard from "./TripCard";
+import TripForm from "./TripForm";
+import TripPage from "./TripPage";
 
 export type Trip = {
   name: string;
@@ -30,10 +33,12 @@ export default function Trips() {
   }, []);
 
   return (
-    <SimpleGrid columns={4} spacing={8}>
-      {trips.map((trip, idx) => (
-        <TripCard key={idx} trip={trip} />
-      ))}
-    </SimpleGrid>
+    <>
+      <SimpleGrid columns={4} spacing={8}>
+        {trips.map((trip, idx) => (
+          <TripCard key={idx} trip={trip} />
+        ))}
+      </SimpleGrid>
+    </>
   );
 }
