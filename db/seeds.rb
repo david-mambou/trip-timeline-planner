@@ -57,8 +57,12 @@ transfer2 = Transfer.create(mode: "train", departure_time: DateTime.new(2024, 4,
 
 # associate transfers to stops
 
-stop1.transfers << transfer1
-stop2.transfers << [transfer1, transfer2]
-stop3.transfers << transfer2
+stop1.outbound = transfer1
+stop1.save
+stop2.inbound = transfer1
+stop2.outbound = transfer2
+stop2.save
+stop3.inbound = transfer2
+stop3.save
 
 print("Successfully seeded!")
