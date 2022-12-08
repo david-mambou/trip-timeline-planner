@@ -133,5 +133,7 @@ export default function TripPage() {
         </VStack>
       </>
     );
+  } else {
+    return <></>;
   }
 }
