@@ -1,5 +1,6 @@
+import { Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Route, Routes, useParams } from "react-router-dom";
+import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import StopForm from "./StopForm";
 import TripDetails from "./TripDetails";
 import TripIntroCard from "./TripIntroCard";
@@ -38,6 +39,7 @@ export type Transfer = {
 };
 
 export default function TripPage() {
+  const navigate = useNavigate();
   const [trip, setTrip] = useState<Trip>();
   const [stops, setStops] = useState<Stop[]>([]);
   const [stays, setStays] = useState<Stay[]>([]);
@@ -117,6 +119,7 @@ export default function TripPage() {
   if (trip) {
     return (
       <>
+        <Button onClick={() => navigate("./..")}>Back to Trips</Button>
         <TripIntroCard trip={trip} />
 
         <Routes>
@@ -124,7 +127,7 @@ export default function TripPage() {
             index
             element={<TripDetails stops={stops} stays={stays} transfers={transfers} activities={activities} />}
           />
-          <Route path="stops/new" element={<StopForm trip={trip} />} />
+          <Route path="stops/new" element={<StopForm stays={stays} trip={trip} />} />
         </Routes>
       </>
     );

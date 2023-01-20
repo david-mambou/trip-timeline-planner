@@ -1,17 +1,18 @@
-import { Button, Input } from "@chakra-ui/react";
+import { Button, Input, Select } from "@chakra-ui/react";
 import { SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isEmptyObject } from "../helpers/helpers";
 import type { Trip } from "./Trips";
-import type { Stop } from "./TripPage";
+import type { Stay, Stop } from "./TripPage";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 type StopFormProps = {
   trip: Trip;
+  stays: Stay[];
 };
 
-export default function StopForm({ trip }: StopFormProps) {
+export default function StopForm({ trip, stays }: StopFormProps) {
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
@@ -48,23 +49,48 @@ export default function StopForm({ trip }: StopFormProps) {
     e.preventDefault();
     const target = e.target as typeof e.target & {
       name: { value: string };
+      stayId: { value: number };
     };
-    const errors = validateStop({ name: target.name.value, trip_id: trip.id, start_day: startDate, end_day: endDate });
+    const errors = validateStop({
+      name: target.name.value,
+      trip_id: trip.id,
+      start_day: startDate,
+      end_day: endDate,
+      stay_id: target.stayId.value,
+    });
 
     if (isEmptyObject(errors)) {
-      createStop({ name: target.name.value, trip_id: trip.id, start_day: startDate, end_day: endDate });
+      createStop({
+        name: target.name.value,
+        trip_id: trip.id,
+        start_day: startDate,
+        end_day: endDate,
+        stay_id: target.stayId.value,
+      });
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Name</label>
-      <Input name="name" placeholder="France" />
-      <label htmlFor="start">Start</label>
-      <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)} />
-      <label htmlFor="end">End</label>
-      <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} />
-      <Button type="submit">Add stop</Button>
-    </form>
+    <>
+      <Button onClick={() => navigate("./../..")}>Back to Trip</Button>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">Name</label>
+        <Input name="name" placeholder="France" />
+        <label htmlFor="start">Start</label>
+        <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)} />
+        <label htmlFor="end">End</label>
+        <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} />
+        <label htmlFor="stay">Stay</label>
+        <Select name="stayId">
+          {stays.map((stay, i) => (
+            <option key={i} value={stay.id}>
+              {stay.name}
+            </option>
+          ))}
+          <option value={0}>Other...</option>
+        </Select>
+        <Button type="submit">Add stop</Button>
+      </form>
+    </>
   );
 }

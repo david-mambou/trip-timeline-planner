@@ -11,7 +11,7 @@ export default function TripCard({ trip }: TripCardProps) {
       <Card bg="white">
         <CardBody>
           <Image borderRadius={5} src={`https://loremflickr.com/320/240/${trip.name}`} alt={trip.name} />
-          <LinkOverlay href={`./${trip.id}`}>
+          <LinkOverlay href={`trips/${trip.id}`}>
             <Heading mt={5} size="md">
               {trip.name}
             </Heading>
