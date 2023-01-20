@@ -4,8 +4,10 @@ Rails.application.routes.draw do
   get 'trips', to: 'site#index'
   get 'trips/new', to: 'site#index'
   get 'trips/:id', to: 'site#index'
+  get 'trips/:id/stops/new', to: 'site#index'
 
   namespace :api do
+    resources :stops, only: %i(create)
     resources :transfers, only: %i(index)
     resources :stays, only: %i(index)
     resources :activities, only: %i(index)

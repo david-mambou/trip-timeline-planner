@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import TripCard from "./TripCard";
 
 export type Trip = {
-  id?: number;
+  id: number;
   name: string;
 };
 

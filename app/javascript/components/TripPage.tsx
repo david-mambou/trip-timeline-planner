@@ -1,33 +1,34 @@
-import { VStack } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Route, Routes, useParams } from "react-router-dom";
+import StopForm from "./StopForm";
+import TripDetails from "./TripDetails";
 import TripIntroCard from "./TripIntroCard";
 import { Trip } from "./Trips";
 
-type Stop = {
-  id: number;
+export type Stop = {
+  id?: number;
   name: string;
-  stay_id: number;
+  stay_id?: number;
   trip_id: number;
-  start_day: string;
-  end_day: string;
+  start_day: Date;
+  end_day: Date;
   inbound_id?: number;
   outbound_id?: number;
 };
 
-type Stay = {
+export type Stay = {
   id: number;
   name: string;
   price: number;
 };
 
-type Activity = {
+export type Activity = {
   id: number;
   name: string;
   price: number;
 };
 
-type Transfer = {
+export type Transfer = {
   id: number;
   mode: string;
   departure_time: string;
@@ -101,7 +102,7 @@ export default function TripPage() {
           const data = await response.json();
           setActivities((prev) => ({
             ...prev,
-            [stop.id]: data,
+            [stop.id as number]: data,
           }));
         } catch (error) {
           setIsError(true);
@@ -117,20 +118,14 @@ export default function TripPage() {
     return (
       <>
         <TripIntroCard trip={trip} />
-        <VStack>
-          {stops?.map((stop, idx) => (
-            <>
-              <h3 key={idx}>{stop.name}</h3>
-              <div>Start: {stop.start_day}</div>
-              <div>End: {stop.end_day}</div>
-              <div>Staying at: {stays?.find((s) => s.id === stop.stay_id)?.name}</div>
-              {activities[stop.id] && (
-                <div>Activities: {activities[stop.id].map((activity) => activity.name).join(", ")}</div>
-              )}
-              {stop.outbound_id && <div>Leaving by: {transfers?.find((t) => t.id === stop.outbound_id)?.mode}</div>}
-            </>
-          ))}
-        </VStack>
+
+        <Routes>
+          <Route
+            index
+            element={<TripDetails stops={stops} stays={stays} transfers={transfers} activities={activities} />}
+          />
+          <Route path="stops/new" element={<StopForm trip={trip} />} />
+        </Routes>
       </>
     );
   } else {
