@@ -7,7 +7,7 @@ import TripIntroCard from "./TripIntroCard";
 import { Trip } from "./Trips";
 
 export type Stop = {
-  id?: number;
+  id: number;
   name: string;
   stay_id?: number;
   trip_id: number;

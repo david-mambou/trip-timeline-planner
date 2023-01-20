@@ -1,7 +1,7 @@
 import { Button, Input, Select } from "@chakra-ui/react";
 import { SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { isEmptyObject } from "../helpers/helpers";
+import { isEmptyObject } from "../../helpers/helpers";
 import type { Trip } from "./Trips";
 import type { Stay, Stop } from "./TripPage";
 import DatePicker from "react-datepicker";
@@ -12,12 +12,14 @@ type StopFormProps = {
   stays: Stay[];
 };
 
+type CreateStopRequest = Omit<Stop, "id">;
+
 export default function StopForm({ trip, stays }: StopFormProps) {
   const navigate = useNavigate();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
-  const createStop = async (stop: Stop) => {
+  const createStop = async (stop: CreateStopRequest) => {
     console.log(JSON.stringify(stop));
     try {
       const response = await window.fetch("/api/stops", {
@@ -37,7 +39,7 @@ export default function StopForm({ trip, stays }: StopFormProps) {
     }
   };
 
-  const validateStop = (stop: Stop) => {
+  const validateStop = (stop: CreateStopRequest) => {
     const errors: Record<string, string> = {};
     if (stop.name.length < 1) {
       errors.name = "Name must be at least one character";

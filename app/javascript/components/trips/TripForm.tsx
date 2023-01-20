@@ -1,13 +1,15 @@
 import { Button, Input } from "@chakra-ui/react";
 import { SyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
-import { isEmptyObject } from "../helpers/helpers";
+import { isEmptyObject } from "../../helpers/helpers";
 import type { Trip } from "./Trips";
+
+type CreateTripRequest = Omit<Trip, "id">;
 
 export default function TripForm() {
   const navigate = useNavigate();
 
-  const createTrip = async (trip: Trip) => {
+  const createTrip = async (trip: CreateTripRequest) => {
     try {
       const response = await window.fetch("/api/trips", {
         method: "POST",
@@ -27,7 +29,7 @@ export default function TripForm() {
     }
   };
 
-  const validateTrip = (trip: Trip) => {
+  const validateTrip = (trip: CreateTripRequest) => {
     const errors: Record<string, string> = {};
     if (trip.name.length < 1) {
       errors.name = "Name must be at least one character";

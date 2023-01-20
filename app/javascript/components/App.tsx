@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router-dom";
 // import StopForm from "./StopForm";
 import TripForm from "./TripForm";
 import TripPage from "./TripPage";
-import Trips from "./Trips";
+import Trips from "./trips/Trips";
 
 export default function App() {
   return (
