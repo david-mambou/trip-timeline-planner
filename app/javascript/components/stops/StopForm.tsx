@@ -2,8 +2,8 @@ import { Button, Input, Select } from "@chakra-ui/react";
 import { SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { isEmptyObject } from "../../helpers/helpers";
-import type { Trip } from "./Trips";
-import type { Stay, Stop } from "./TripPage";
+import type { Trip } from "../trips/Trips";
+import type { Stay, Stop } from "../trips/TripPage";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 

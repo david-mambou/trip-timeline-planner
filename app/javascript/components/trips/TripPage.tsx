@@ -1,7 +1,8 @@
 import { Button } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Route, Routes, useNavigate, useParams } from "react-router-dom";
-import StopForm from "./StopForm";
+import ActivityForm from "../activities/ActivityForm";
+import StopForm from "../stops/StopForm";
 import TripDetails from "./TripDetails";
 import TripIntroCard from "./TripIntroCard";
 import { Trip } from "./Trips";
@@ -116,6 +117,14 @@ export default function TripPage() {
     fetchActivities();
   }, [stops]);
 
+  if (isLoading) {
+    return <div>Loading</div>;
+  }
+
+  if (isError) {
+    return <div>Error</div>;
+  }
+
   if (trip) {
     return (
       <>
@@ -128,6 +137,7 @@ export default function TripPage() {
             element={<TripDetails stops={stops} stays={stays} transfers={transfers} activities={activities} />}
           />
           <Route path="stops/new" element={<StopForm stays={stays} trip={trip} />} />
+          <Route path="stops/:stopId/activities/add" element={<ActivityForm trip={trip} />} />
         </Routes>
       </>
     );

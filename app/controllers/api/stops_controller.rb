@@ -23,7 +23,22 @@ class Api::StopsController < ApplicationController
     end
   end
 
+  def add_activity
+    @stop = Stop.find(params[:id])
+    @stop.activities << Activity.find(add_activity_params[:activity_id])
+
+    if @stop.save
+      render json: @stop, status: :ok
+    else
+      render json: @stop.errors, status: :unprocessable_entity
+    end
+  end
+
   private
+
+  def add_activity_params
+    params.permit(:activity_id)
+  end
 
   def sanitized_params
     params.require(:stop).permit(:name, :start_day, :end_day, :trip_id, :stay_id, :inbound_id, :outbound_id)

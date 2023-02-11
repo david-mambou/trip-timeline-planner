@@ -28,6 +28,7 @@ export default function TripDetails({ stops, stays, activities, transfers }: Tri
                   <div>Activities: {activities[stop.id].map((activity) => activity.name).join(", ")}</div>
                 )}
                 {stop.outbound_id && <div>Leaving by: {transfers?.find((t) => t.id === stop.outbound_id)?.mode}</div>}
+                <Button onClick={() => navigate(`./stops/${stop.id}/activities/add`)}>Add activity</Button>
               </>
             ),
         )}
