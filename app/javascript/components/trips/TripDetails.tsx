@@ -1,5 +1,6 @@
 import { Button, VStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import StopCard from "../stops/StopCard";
 import { Activity, Stay, Stop, Transfer } from "./TripPage";
 
 type TripDetailsProps = {
@@ -17,19 +18,25 @@ export default function TripDetails({ stops, stays, activities, transfers }: Tri
       <Button onClick={() => navigate("./stops/new")}>Add stop</Button>
       <VStack>
         {stops?.map(
-          (stop, idx) =>
+          (stop) =>
             stop.id && (
-              <>
-                <h3 key={idx}>{stop.name}</h3>
-                <div>{`Start: ${stop.start_day}`}</div>
-                <div>{`End: ${stop.end_day}`}</div>
-                <div>Staying at: {stays?.find((s) => s.id === stop.stay_id)?.name}</div>
-                {activities[stop.id] && (
-                  <div>Activities: {activities[stop.id].map((activity) => activity.name).join(", ")}</div>
-                )}
-                {stop.outbound_id && <div>Leaving by: {transfers?.find((t) => t.id === stop.outbound_id)?.mode}</div>}
-                <Button onClick={() => navigate(`./stops/${stop.id}/activities/add`)}>Add activity</Button>
-              </>
+              <StopCard
+                activities={activities[stop.id]}
+                stay={stays?.find((s) => s.id === stop.stay_id)}
+                stop={stop}
+                transfer={transfers?.find((t) => t.id === stop.outbound_id)}
+              />
+              // <>
+              //   <h3 key={idx}>{stop.name}</h3>
+              //   <div>{`Start: ${stop.start_day}`}</div>
+              //   <div>{`End: ${stop.end_day}`}</div>
+              //   <div>Staying at: {stays?.find((s) => s.id === stop.stay_id)?.name}</div>
+              //   {activities[stop.id] && (
+              //     <div>Activities: {activities[stop.id].map((activity) => activity.name).join(", ")}</div>
+              //   )}
+              //   {stop.outbound_id && <div>Leaving by: {transfers?.find((t) => t.id === stop.outbound_id)?.mode}</div>}
+              //   <Button onClick={() => navigate(`./stops/${stop.id}/activities/add`)}>Add activity</Button>
+              // </>
             ),
         )}
       </VStack>
