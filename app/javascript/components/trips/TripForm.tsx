@@ -51,10 +51,13 @@ export default function TripForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="name">Name</label>
-      <Input name="name" placeholder="France" />
-      <Button type="submit">Add trip</Button>
-    </form>
+    <>
+      <Button onClick={() => navigate("./..")}>Back to Trips</Button>
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">Name</label>
+        <Input name="name" placeholder="France" />
+        <Button type="submit">Add trip</Button>
+      </form>
+    </>
   );
 }
