@@ -16,7 +16,7 @@
     "react-router-dom": "^6.4.2"
   },
   "scripts": {
-    "build": "node esbuild.config.js",
+    "build": "node esbuild.config.mjs",
     "lint": "eslint . --ext .ts,.tsx",
     "lint-files": "eslint --cache --ignore-path ./.gitignore --fix",
     "lint-staged": "node_modules/.bin/lint-staged",
