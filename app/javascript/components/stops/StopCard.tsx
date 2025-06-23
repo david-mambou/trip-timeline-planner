@@ -1,5 +1,6 @@
-import { Box, Card, CardBody, Flex, Heading, Image } from "@chakra-ui/react";
+import { Box, Button, Card, CardBody, Flex, Heading, Image } from "@chakra-ui/react";
 import type { Activity, Stay, Stop, Transfer } from "../trips/TripPage";
+import { useNavigate } from "react-router-dom";
 
 export type StopCardProps = {
   stop: Stop;
@@ -9,6 +10,7 @@ export type StopCardProps = {
 };
 
 export default function StopCard({ stop, stay, activities, transfer }: StopCardProps) {
+  const navigate = useNavigate();
   return (
     <Card bg="white" w="50%">
       <CardBody>
@@ -21,6 +23,7 @@ export default function StopCard({ stop, stay, activities, transfer }: StopCardP
             <div>{`${stop.start_day} to ${stop.end_day}`}</div>
             <div>Staying at {stay?.name}</div>
             <div>Activities: {activities?.map((activity) => activity.name).join(", ")}</div>
+            <Button onClick={() => navigate(`./stops/${stop.id}/activities/add`)}>Add activity</Button>
           </Box>
         </Flex>
       </CardBody>
