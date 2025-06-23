@@ -1,9 +1,15 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.2"
+ruby "3.4.4"
 
-gem 'nio4r', '>= 2.5.9'
+# gem 'nio4r', '>= 2.5.9'
+# gem 'nokogiri', '>= 1.16', platforms: [:ruby]
+
+# Bundled gems since Ruby 3.4
+gem 'mutex_m'
+gem 'base64'
+gem 'bigdecimal'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.3", ">= 7.0.3.1"

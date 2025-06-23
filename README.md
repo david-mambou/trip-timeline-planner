@@ -3,8 +3,8 @@
 
 - Ruby version
 
-Using Ruby version 3.1.2
-Make sure you are using a user-inssstalled Ruby, not your computer's Ruby.
+Using Ruby version 3.4.4
+Make sure you are using a user-installed Ruby, not your OS's default Ruby.
 
 - System dependencies
 
