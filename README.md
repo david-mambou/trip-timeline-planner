@@ -1,24 +1,39 @@
-# README
+# Trip Timeline Planner
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
 
 - Ruby version
 
+Using Ruby version 3.1.2
+Make sure you are using a user-inssstalled Ruby, not your computer's Ruby.
+
 - System dependencies
+
+Ruby, bundler, NodeJS, yarn, postgresql
 
 - Configuration
 
-- Database creation
+Install Ruby dependencies:
 
-- Database initialization
+```
+bundle
+```
 
-- How to run the test suite
+Install  JS dependencies
 
-- Services (job queues, cache servers, search engines, etc.)
+```
+yarn install
+```
 
-- Deployment instructions
+- Database creation, initialization
 
-- ...
+Seed only if you want to.
+
+```
+bin/rails db:create db:migrate db:seed
+```
+
+- Run
+
+```
+bin/dev
+```
