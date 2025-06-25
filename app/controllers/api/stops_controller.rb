@@ -34,6 +34,11 @@ class Api::StopsController < ApplicationController
     end
   end
 
+  def destroy
+    @stop = Stop.find(params[:id])
+    @stop.destroy
+  end
+
   private
 
   def add_activity_params
