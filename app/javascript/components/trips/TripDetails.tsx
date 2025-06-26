@@ -23,9 +23,9 @@ export default function TripDetails({ stops, stays, activities, transfers }: Tri
               <StopCard
                 activities={activities[stop.id]}
                 key={stop.id}
-                stay={stays?.find((s) => s.id === stop.stay_id)}
+                stay={stays?.find((s) => s.id === stop.stayId)}
                 stop={stop}
-                transfer={transfers?.find((t) => t.id === stop.outbound_id)}
+                transfer={transfers?.find((t) => t.id === stop.outboundId)}
               />
             ),
         )}

@@ -6,6 +6,7 @@ import type { Trip } from "../trips/Trips";
 import type { Stay, Stop } from "../trips/TripPage";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import snakecaseKeys from "snakecase-keys";
 
 type StopFormProps = {
   trip: Trip;
@@ -20,11 +21,11 @@ export default function StopForm({ trip, stays }: StopFormProps) {
   const [endDate, setEndDate] = useState(new Date());
 
   const createStop = async (stop: CreateStopRequest) => {
-    console.log(JSON.stringify(stop));
+    const snakecasedStop = snakecaseKeys(stop);
     try {
       const response = await window.fetch("/api/stops", {
         method: "POST",
-        body: JSON.stringify(stop),
+        body: JSON.stringify(snakecasedStop),
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
@@ -55,19 +56,19 @@ export default function StopForm({ trip, stays }: StopFormProps) {
     };
     const errors = validateStop({
       name: target.name.value,
-      trip_id: trip.id,
-      start_day: startDate,
-      end_day: endDate,
-      stay_id: target.stayId.value,
+      tripId: trip.id,
+      startDay: startDate,
+      endDay: endDate,
+      stayId: target.stayId.value,
     });
 
     if (isEmptyObject(errors)) {
       createStop({
         name: target.name.value,
-        trip_id: trip.id,
-        start_day: startDate,
-        end_day: endDate,
-        stay_id: target.stayId.value,
+        tripId: trip.id,
+        startDay: startDate,
+        endDay: endDate,
+        stayId: target.stayId.value,
       });
     }
   };

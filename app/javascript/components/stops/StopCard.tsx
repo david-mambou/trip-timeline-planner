@@ -52,7 +52,7 @@ export default function StopCard({ stop, stay, activities, transfer }: StopCardP
               <Heading mt={5} size="md">
                 {stop.name}
               </Heading>
-              <div>{`${stop.start_day} to ${stop.end_day}`}</div>
+              <div>{`${stop.startDay} to ${stop.endDay}`}</div>
               <div>Staying at {stay?.name}</div>
               <div>Activities:</div>
               {activities?.map((activity) => (
@@ -69,7 +69,7 @@ export default function StopCard({ stop, stay, activities, transfer }: StopCardP
       </Card>
       {transfer && (
         <div>
-          {transfer.mode} at {new Date(transfer.departure_time).toLocaleTimeString()} from {transfer.pickup_point}
+          {transfer.mode} at {new Date(transfer.departureTime).toLocaleTimeString()} from {transfer.pickupPoint}
         </div>
       )}
     </>
