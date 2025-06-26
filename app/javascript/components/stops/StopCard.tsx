@@ -20,7 +20,7 @@ export default function StopCard({ stop, stay, activities, transfer }: StopCardP
             <Heading mt={5} size="md">
               {stop.name}
             </Heading>
-            <div>{`${stop.start_day} to ${stop.end_day}`}</div>
+            <div>{`${stop.startDay} to ${stop.endDay}`}</div>
             <div>Staying at {stay?.name}</div>
             <div>Activities: {activities?.map((activity) => activity.name).join(", ")}</div>
             <Button onClick={() => navigate(`./stops/${stop.id}/activities/add`)}>Add activity</Button>

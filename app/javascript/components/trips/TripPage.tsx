@@ -6,16 +6,17 @@ import StopForm from "../stops/StopForm";
 import TripDetails from "./TripDetails";
 import TripIntroCard from "./TripIntroCard";
 import { Trip } from "./Trips";
+import camelcaseKeys from "camelcase-keys";
 
 export type Stop = {
   id: number;
   name: string;
-  stay_id?: number;
-  trip_id: number;
-  start_day: Date;
-  end_day: Date;
-  inbound_id?: number;
-  outbound_id?: number;
+  stayId?: number;
+  tripId: number;
+  startDay: Date;
+  endDay: Date;
+  inboundId?: number;
+  outboundId?: number;
 };
 
 export type Stay = {
@@ -33,9 +34,9 @@ export type Activity = {
 export type Transfer = {
   id: number;
   mode: string;
-  departure_time: string;
-  arrival_time: string;
-  pickup_point: string;
+  departureTime: string;
+  arrivalTime: string;
+  pickupPoint: string;
   price: number;
 };
 
@@ -66,7 +67,8 @@ export default function TripPage() {
         const response = await window.fetch(`/api/stops/${id}`);
         if (!response.ok) throw Error(response.statusText);
         const data = await response.json();
-        setStops(data);
+        const camelcasedData = camelcaseKeys(data);
+        setStops(camelcasedData);
       } catch (error) {
         setIsError(true);
         console.error(error);
@@ -75,7 +77,8 @@ export default function TripPage() {
         const response = await window.fetch(`/api/stays`);
         if (!response.ok) throw Error(response.statusText);
         const data = await response.json();
-        setStays(data);
+        const camelcasedData = camelcaseKeys(data);
+        setStays(camelcasedData);
       } catch (error) {
         setIsError(true);
         console.error(error);
@@ -84,7 +87,8 @@ export default function TripPage() {
         const response = await window.fetch(`/api/transfers`);
         if (!response.ok) throw Error(response.statusText);
         const data = await response.json();
-        setTransfers(data);
+        const camelcasedData = camelcaseKeys(data);
+        setTransfers(camelcasedData);
       } catch (error) {
         setIsError(true);
         console.error(error);
