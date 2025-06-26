@@ -25,7 +25,19 @@ class Api::StopsController < ApplicationController
 
   def add_activity
     @stop = Stop.find(params[:id])
-    @stop.activities << Activity.find(add_activity_params[:activity_id])
+    @stop.activities << Activity.find(add_remove_activity_params[:activity_id])
+
+    if @stop.save
+      render json: @stop, status: :ok
+    else
+      render json: @stop.errors, status: :unprocessable_entity
+    end
+  end
+
+  def remove_activity
+    @stop = Stop.find(params[:id])
+    activity = Activity.find(add_remove_activity_params[:activity_id])
+    @stop.activities.delete(activity) if activity
 
     if @stop.save
       render json: @stop, status: :ok
@@ -41,7 +53,7 @@ class Api::StopsController < ApplicationController
 
   private
 
-  def add_activity_params
+  def add_remove_activity_params
     params.permit(:activity_id)
   end
 

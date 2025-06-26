@@ -16,6 +16,7 @@ Rails.application.routes.draw do
     resources :trips, only: %i(index show create)
     get 'stops/:trip_id', to: 'stops#list_per_trip'
     put 'stops/:id/activities/add', to: 'stops#add_activity'
+    delete 'stops/:id/activities/:activity_id', to: 'stops#remove_activity'
     get 'stops/:id/activities', to: 'stops#list_activities'
   end
 end
