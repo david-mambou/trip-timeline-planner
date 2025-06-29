@@ -6,7 +6,7 @@ import Trips from "./trips/Trips";
 export default function App() {
   return (
     <Routes>
-      <Route path="trips/new" element={<TripForm />} />
+      <Route path="trips/new" element={<TripForm inputMode="create" />} />
       <Route path="trips/:id/*" element={<TripPage />} />
       <Route path="trips" element={<Trips />} />
     </Routes>

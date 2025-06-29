@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   get 'trips', to: 'site#index'
   get 'trips/new', to: 'site#index'
   get 'trips/:id', to: 'site#index'
+  get 'trips/:id/edit', to: 'site#index'
   get 'trips/:id/stops/:stop_id/activities/add', to: 'site#index'
   get 'trips/:id/stops/new', to: 'site#index'
 
@@ -13,7 +14,7 @@ Rails.application.routes.draw do
     resources :stays, only: %i(index)
     resources :activities, only: %i(index create)
     resources :stops_activities, only: %i(index)
-    resources :trips, only: %i(index show create)
+    resources :trips, only: %i(index show create update)
     get 'stops/:trip_id', to: 'stops#list_per_trip'
     put 'stops/:id/activities/add', to: 'stops#add_activity'
     delete 'stops/:id/activities/:activity_id', to: 'stops#remove_activity'

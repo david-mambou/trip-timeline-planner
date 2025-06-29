@@ -6,7 +6,17 @@ import type { Trip } from "./Trips";
 
 type CreateTripRequest = Omit<Trip, "id">;
 
-export default function TripForm() {
+type TripFormProps =
+  | {
+      trip?: undefined;
+      inputMode: "create";
+    }
+  | {
+      trip: Trip;
+      inputMode: "update";
+    };
+
+export default function TripForm({ trip, inputMode }: TripFormProps) {
   const navigate = useNavigate();
 
   const createTrip = async (trip: CreateTripRequest) => {
@@ -24,6 +34,27 @@ export default function TripForm() {
       const savedTrip = await response.json();
       window.alert("Trip added!");
       navigate(`/trips/${savedTrip.id}`);
+      navigate(0);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const updateTrip = async (trip: Trip) => {
+    try {
+      const response = await window.fetch(`/api/trips/${trip.id}`, {
+        method: "PUT",
+        body: JSON.stringify(trip),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) throw Error(response.statusText);
+
+      window.alert("Trip updated!");
+      navigate(`/trips/${trip.id}`);
+      navigate(0);
     } catch (error) {
       console.error(error);
     }
@@ -46,7 +77,9 @@ export default function TripForm() {
     console.log(target.name.value);
 
     if (isEmptyObject(errors)) {
-      createTrip({ name: target.name.value });
+      inputMode === "create"
+        ? createTrip({ name: target.name.value })
+        : updateTrip({ id: trip?.id, name: target.name.value });
     }
   };
 
@@ -55,8 +88,8 @@ export default function TripForm() {
       <Button onClick={() => navigate("./..")}>Back to Trips</Button>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
-        <Input name="name" placeholder="France" />
-        <Button type="submit">Add trip</Button>
+        <Input defaultValue={trip?.name} name="name" placeholder="France" />
+        <Button type="submit">{inputMode === "create" ? "Add trip" : "Update trip"}</Button>
       </form>
     </>
   );
