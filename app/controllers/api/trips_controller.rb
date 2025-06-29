@@ -13,7 +13,7 @@ class Api::TripsController < ApplicationController
       render json: @trip.errors, status: :unprocessable_entity
     end
   end
-  
+
   def show
     render json: @trip
   end
