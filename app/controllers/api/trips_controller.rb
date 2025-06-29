@@ -1,5 +1,5 @@
 class Api::TripsController < ApplicationController
-  before_action :set_trip, only: %i[show destroy]
+  before_action :set_trip, only: %i[show update destroy]
   def index
     @trips = Trip.all
     render json: @trips
@@ -16,6 +16,15 @@ class Api::TripsController < ApplicationController
 
   def show
     render json: @trip
+  end
+
+  def update
+    @trip.name = sanitized_params[:name]
+    if @trip.save!
+      render json: @trip, status: :created
+    else
+      render json: @trip.errors, status: :unprocessable_entity
+    end
   end
 
   def destroy

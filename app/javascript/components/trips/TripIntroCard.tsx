@@ -1,7 +1,10 @@
-import { Card, Heading, Image, Stack } from "@chakra-ui/react";
+import { Button, Card, Heading, Image, Stack } from "@chakra-ui/react";
 import { TripCardProps } from "./TripCard";
+import { useNavigate } from "react-router-dom";
 
 export default function TripIntroCard({ trip }: TripCardProps) {
+  const navigate = useNavigate();
+
   return (
     <Card bg="white" direction="row" overflow="hidden">
       <Image
@@ -12,6 +15,7 @@ export default function TripIntroCard({ trip }: TripCardProps) {
       <Stack p="4">
         <Heading>{trip.name}</Heading>
       </Stack>
+      <Button onClick={() => navigate(`/trips/${trip.id}/edit`)}>Edit trip</Button>
     </Card>
   );
 }

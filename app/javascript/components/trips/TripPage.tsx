@@ -7,6 +7,7 @@ import TripDetails from "./TripDetails";
 import TripIntroCard from "./TripIntroCard";
 import { Trip } from "./Trips";
 import camelcaseKeys from "camelcase-keys";
+import TripForm from "./TripForm";
 
 export type Stop = {
   id: number;
@@ -140,6 +141,7 @@ export default function TripPage() {
             index
             element={<TripDetails stops={stops} stays={stays} transfers={transfers} activities={activities} />}
           />
+          <Route path="edit" element={<TripForm inputMode="update" trip={trip} />} />
           <Route path="stops/new" element={<StopForm stays={stays} trip={trip} />} />
           <Route path="stops/:stopId/activities/add" element={<ActivityForm trip={trip} />} />
         </Routes>
