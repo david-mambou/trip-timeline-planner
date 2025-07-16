@@ -34,7 +34,7 @@ export type Activity = {
 
 export type Transfer = {
   id: number;
-  mode: string;
+  mode: "flight" | "train" | "bus" | "taxi" | "rentalcar" | "rentalbike" | "boat";
   departureTime: string;
   arrivalTime: string;
   pickupPoint: string;
