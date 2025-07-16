@@ -52,8 +52,8 @@ stop3.activities << [activity2, activity8]
 
 # create transfers
 
-transfer1 = Transfer.create(mode: "flight", departure_time: DateTime.new(2024, 4, 14, 10, 25, 0), arrival_time: DateTime.new(2024, 4, 14, 13, 45, 0), price: 4000)
-transfer2 = Transfer.create(mode: "train", departure_time: DateTime.new(2024, 4, 17, 6, 0, 0), arrival_time: DateTime.new(2024, 4, 14, 17, 30, 0), price: 6000)
+transfer1 = Transfer.create(mode: "flight", departure_time: DateTime.new(2024, 4, 14, 10, 25, 0), arrival_time: DateTime.new(2024, 4, 14, 13, 45, 0), price: 4000, pickup_point: "Chiang Mai Airport")
+transfer2 = Transfer.create(mode: "train", departure_time: DateTime.new(2024, 4, 17, 6, 0, 0), arrival_time: DateTime.new(2024, 4, 14, 17, 30, 0), price: 6000, pickup_point: "Chiang Mai Railway Station")
 
 # associate transfers to stops
 

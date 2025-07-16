@@ -1,6 +1,7 @@
 import { Box, Button, Card, CardBody, Flex, Heading, Image, Tag, TagCloseButton, TagLabel } from "@chakra-ui/react";
 import type { Activity, Stay, Stop, Transfer } from "../trips/TripPage";
 import { useNavigate } from "react-router-dom";
+import TransferCard from "../trips/TransferCard";
 
 export type StopCardProps = {
   stop: Stop;
@@ -44,7 +45,7 @@ export default function StopCard({ stop, stay, activities, transfer }: StopCardP
 
   return (
     <>
-      <Card bg="white" w="50%">
+      <Card bg="white" w="70%">
         <CardBody>
           <Flex>
             <Image borderRadius={5} w="15%" src={`https://loremflickr.com/320/240/${stop.name}`} alt={stop.name} />
@@ -67,11 +68,7 @@ export default function StopCard({ stop, stay, activities, transfer }: StopCardP
           </Flex>
         </CardBody>
       </Card>
-      {transfer && (
-        <div>
-          {transfer.mode} at {new Date(transfer.departureTime).toLocaleTimeString()} from {transfer.pickupPoint}
-        </div>
-      )}
+      {transfer && <TransferCard transfer={transfer} />}
     </>
   );
 }
