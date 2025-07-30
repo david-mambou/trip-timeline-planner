@@ -5,13 +5,15 @@ class Api::TransfersController < ApplicationController
   end
 
   def create
-    @transfer = Transfer.create!(sanitized_params)
-    is_outbound_of_stop = Stop.find(params[:is_outbound_of])
-    is_outbound_of_stop.outbound_id = @transfer.id
-    is_outbound_of_stop.save!
-    is_inbound_of_stop = Stop.find(params[:is_inbound_of])
-    is_inbound_of_stop.inbound_id = @transfer.id
-    is_inbound_of_stop.save!
+    ActiveRecord::Base.transaction do
+      @transfer = Transfer.create!(sanitized_params)
+      is_outbound_of_stop = Stop.find(params[:is_outbound_of])
+      is_outbound_of_stop.outbound_id = @transfer.id
+      is_outbound_of_stop.save!
+      is_inbound_of_stop = Stop.find(params[:is_inbound_of])
+      is_inbound_of_stop.inbound_id = @transfer.id
+      is_inbound_of_stop.save!
+    end
     render json: @transfer, status: :created
   rescue ActiveRecord::RecordInvalid => e
     render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
