@@ -31,6 +31,7 @@ export default function StopForm({ trip, stays }: StopFormProps) {
 
       window.alert("Stop added!");
       navigate(`/trips/${trip.id}`);
+      navigate(0);
     } catch (error) {
       console.error(error);
     }
