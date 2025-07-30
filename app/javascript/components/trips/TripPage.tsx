@@ -8,6 +8,7 @@ import TripIntroCard from "./TripIntroCard";
 import { Trip } from "./Trips";
 import camelcaseKeys from "camelcase-keys";
 import TripForm from "./TripForm";
+import TransferForm from "../transfers/TransferForm";
 
 export type Stop = {
   id: number;
@@ -32,11 +33,13 @@ export type Activity = {
   price: number;
 };
 
+export type TransferMode = "flight" | "train" | "bus" | "taxi" | "rentalcar" | "rentalbike" | "boat";
+
 export type Transfer = {
   id: number;
-  mode: "flight" | "train" | "bus" | "taxi" | "rentalcar" | "rentalbike" | "boat";
-  departureTime: string;
-  arrivalTime: string;
+  mode: TransferMode;
+  departureTime: Date;
+  arrivalTime: Date;
   pickupPoint: string;
   price: number;
 };
@@ -144,6 +147,7 @@ export default function TripPage() {
           <Route path="edit" element={<TripForm inputMode="update" trip={trip} />} />
           <Route path="stops/new" element={<StopForm stays={stays} trip={trip} />} />
           <Route path="stops/:stopId/activities/add" element={<ActivityForm trip={trip} />} />
+          <Route path="transfers/add" element={<TransferForm trip={trip} />} />
         </Routes>
       </>
     );

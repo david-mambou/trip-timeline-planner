@@ -1,6 +1,6 @@
 import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 import { Transfer } from "./TripPage";
-import { format, parseISO } from "date-fns";
+import { format } from "date-fns";
 
 export type TransferCardProps = {
   transfer: Transfer;
@@ -26,9 +26,9 @@ export default function TransferCard({ transfer }: TransferCardProps) {
       </Box>
       <Divider bg="gray.500" borderRadius="full" orientation="vertical" height="100%" width="4px" mx={4} />
       <Box flex={1}>
-        <Text>{format(parseISO(transfer.departureTime), "HH:mm")}</Text>
+        <Text>{format(transfer.departureTime, "HH:mm")}</Text>
         <Text>from {transfer.pickupPoint}</Text>
-        <Text>Arrival: {format(parseISO(transfer.arrivalTime), "HH:mm")}</Text>
+        <Text>Arrival: {format(transfer.arrivalTime, "HH:mm")}</Text>
         <Text>Price: {transfer.price}</Text>
       </Box>
     </Flex>
