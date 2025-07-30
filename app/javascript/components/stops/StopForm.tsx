@@ -1,11 +1,9 @@
 import { Button, Input, Select } from "@chakra-ui/react";
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { isEmptyObject } from "../../helpers/helpers";
 import type { Trip } from "../trips/Trips";
 import type { Stay, Stop } from "../trips/TripPage";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
 import snakecaseKeys from "snakecase-keys";
 
 type StopFormProps = {
@@ -17,8 +15,6 @@ type CreateStopRequest = Omit<Stop, "id">;
 
 export default function StopForm({ trip, stays }: StopFormProps) {
   const navigate = useNavigate();
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
 
   const createStop = async (stop: CreateStopRequest) => {
     const snakecasedStop = snakecaseKeys(stop);
@@ -35,6 +31,7 @@ export default function StopForm({ trip, stays }: StopFormProps) {
 
       window.alert("Stop added!");
       navigate(`/trips/${trip.id}`);
+      navigate(0);
     } catch (error) {
       console.error(error);
     }
@@ -53,12 +50,14 @@ export default function StopForm({ trip, stays }: StopFormProps) {
     const target = e.target as typeof e.target & {
       name: { value: string };
       stayId: { value: number };
+      startDay: { value: string };
+      endDay: { value: string };
     };
     const errors = validateStop({
       name: target.name.value,
       tripId: trip.id,
-      startDay: startDate,
-      endDay: endDate,
+      startDay: new Date(target.startDay.value),
+      endDay: new Date(target.endDay.value),
       stayId: target.stayId.value,
     });
 
@@ -66,8 +65,8 @@ export default function StopForm({ trip, stays }: StopFormProps) {
       createStop({
         name: target.name.value,
         tripId: trip.id,
-        startDay: startDate,
-        endDay: endDate,
+        startDay: new Date(target.startDay.value),
+        endDay: new Date(target.endDay.value),
         stayId: target.stayId.value,
       });
     }
@@ -79,10 +78,10 @@ export default function StopForm({ trip, stays }: StopFormProps) {
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <Input name="name" placeholder="France" />
-        <label htmlFor="start">Start</label>
-        <DatePicker selected={startDate} onChange={(date: Date) => setStartDate(date)} />
-        <label htmlFor="end">End</label>
-        <DatePicker selected={endDate} onChange={(date: Date) => setEndDate(date)} />
+        <label htmlFor="startDay">Start</label>
+        <Input name="startDay" type="date" />
+        <label htmlFor="endDay">End</label>
+        <Input name="endDay" type="date" />
         <label htmlFor="stay">Stay</label>
         <Select name="stayId">
           {stays.map((stay, i) => (

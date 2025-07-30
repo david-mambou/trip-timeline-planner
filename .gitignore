@@ -101,3 +101,5 @@ yarn-debug.log*
 
 .DS_Store
 .eslintcache
+
+.vscode
