@@ -2,15 +2,17 @@ import { Box, Button, Card, CardBody, Flex, Heading, Image, Tag, TagCloseButton,
 import type { Activity, Stay, Stop, Transfer } from "../trips/TripPage";
 import { useNavigate } from "react-router-dom";
 import TransferCard from "../trips/TransferCard";
+import { QuestionMarkCircleIcon } from "@heroicons/react/outline";
 
 export type StopCardProps = {
   stop: Stop;
+  nextStopId?: number;
   stay?: Stay;
   activities: Activity[];
   transfer?: Transfer;
 };
 
-export default function StopCard({ stop, stay, activities, transfer }: StopCardProps) {
+export default function StopCard({ stop, nextStopId, stay, activities, transfer }: StopCardProps) {
   const navigate = useNavigate();
 
   const deleteStop = async (id: number) => {
@@ -68,7 +70,17 @@ export default function StopCard({ stop, stay, activities, transfer }: StopCardP
           </Flex>
         </CardBody>
       </Card>
-      {transfer && <TransferCard transfer={transfer} />}
+      {transfer ? (
+        <TransferCard transfer={transfer} />
+      ) : nextStopId ? (
+        <Flex align="center" gap={4}>
+          <QuestionMarkCircleIcon height={24} width={24} />
+          How will you get to your next stop?
+          <Button onClick={() => navigate(`./transfers/add?isOutboundOf=${stop.id}&isInboundOf=${nextStopId}`)}>
+            Add transfer
+          </Button>
+        </Flex>
+      ) : undefined}
     </>
   );
 }

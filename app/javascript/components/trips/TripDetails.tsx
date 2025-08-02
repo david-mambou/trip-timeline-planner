@@ -18,11 +18,12 @@ export default function TripDetails({ stops, stays, activities, transfers }: Tri
       <Button onClick={() => navigate("./stops/new")}>Add stop</Button>
       <VStack>
         {stops?.map(
-          (stop) =>
+          (stop, idx) =>
             stop.id && (
               <StopCard
                 activities={activities[stop.id]}
                 key={stop.id}
+                nextStopId={stops[idx + 1] && stops[idx + 1].id}
                 stay={stays?.find((s) => s.id === stop.stayId)}
                 stop={stop}
                 transfer={transfers?.find((t) => t.id === stop.outboundId)}
