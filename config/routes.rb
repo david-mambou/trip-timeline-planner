@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resources :stays, only: %i(index)
     resources :activities, only: %i(index create)
     resources :stops_activities, only: %i(index)
-    resources :trips, only: %i(index show create update)
+    resources :trips, only: %i(index show create update destroy)
     get 'stops/:trip_id', to: 'stops#list_per_trip'
     put 'stops/:id/activities/add', to: 'stops#add_activity'
     delete 'stops/:id/activities/:activity_id', to: 'stops#remove_activity'
