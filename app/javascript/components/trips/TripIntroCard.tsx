@@ -5,6 +5,23 @@ import { useNavigate } from "react-router-dom";
 export default function TripIntroCard({ trip }: TripCardProps) {
   const navigate = useNavigate();
 
+  const deleteTrip = async (id: number) => {
+    try {
+      await window.fetch(`/api/trips/${id}`, {
+        method: "DELETE",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      });
+      window.alert("Trip deleted");
+      navigate("/trips");
+      navigate(0);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Card bg="white" direction="row" overflow="hidden">
       <Image
@@ -16,6 +33,7 @@ export default function TripIntroCard({ trip }: TripCardProps) {
         <Heading>{trip.name}</Heading>
       </Stack>
       <Button onClick={() => navigate(`/trips/${trip.id}/edit`)}>Edit trip</Button>
+      <Button onClick={() => deleteTrip(trip.id)}>Delete trip</Button>
     </Card>
   );
 }
