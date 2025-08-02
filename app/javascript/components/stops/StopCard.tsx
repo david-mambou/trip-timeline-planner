@@ -14,8 +14,6 @@ export type StopCardProps = {
 
 export default function StopCard({ stop, nextStopId, stay, activities, transfer }: StopCardProps) {
   const navigate = useNavigate();
-  console.log(`Inbound of stop ${stop.id}:`, stop.inboundId);
-  console.log(`Outbound of stop ${stop.id}:`, stop.outboundId);
 
   const deleteStop = async (id: number) => {
     try {
