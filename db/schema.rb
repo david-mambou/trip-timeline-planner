@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_06_081721) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_02_194203) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "activities", force: :cascade do |t|
     t.string "name"
@@ -70,7 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_06_081721) do
   end
 
   add_foreign_key "stops", "stays"
-  add_foreign_key "stops", "transfers", column: "inbound_id"
-  add_foreign_key "stops", "transfers", column: "outbound_id"
+  add_foreign_key "stops", "transfers", column: "inbound_id", on_delete: :nullify
+  add_foreign_key "stops", "transfers", column: "outbound_id", on_delete: :nullify
   add_foreign_key "stops", "trips"
 end

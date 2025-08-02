@@ -148,6 +148,7 @@ export default function TripPage() {
           <Route path="stops/new" element={<StopForm stays={stays} trip={trip} />} />
           <Route path="stops/:stopId/activities/add" element={<ActivityForm trip={trip} />} />
           <Route path="transfers/add" element={<TransferForm trip={trip} />} />
+          <Route path="transfers/:transferId/edit" element={<TransferForm trip={trip} />} />
         </Routes>
       </>
     );

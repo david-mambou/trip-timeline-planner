@@ -8,10 +8,11 @@ Rails.application.routes.draw do
   get 'trips/:id/stops/:stop_id/activities/add', to: 'site#index'
   get 'trips/:id/stops/new', to: 'site#index'
   get 'trips/:id/transfers/add', to: 'site#index'
+  get 'trips/:id/transfers/:transfer_id/edit', to: 'site#index'
 
   namespace :api do
     resources :stops, only: %i(create destroy)
-    resources :transfers, only: %i(index create)
+    resources :transfers, only: %i(index show create update destroy)
     resources :stays, only: %i(index)
     resources :activities, only: %i(index create)
     resources :stops_activities, only: %i(index)
