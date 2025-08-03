@@ -82,3 +82,9 @@ gem "pg"
 
 # ESBuild
 gem 'jsbundling-rails'
+
+# auth
+gem 'devise'
+gem 'devise-jwt'
+gem 'omniauth'
+gem 'omniauth-google-oauth2'
