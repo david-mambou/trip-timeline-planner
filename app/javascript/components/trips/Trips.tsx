@@ -17,7 +17,9 @@ export default function Trips() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await window.fetch("/api/trips");
+        const response = await window.fetch("/api/trips", {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
         if (!response.ok) throw Error(response.statusText);
         const data = await response.json();
         setTrips(data);

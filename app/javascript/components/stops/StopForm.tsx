@@ -24,6 +24,7 @@ export default function StopForm({ trip, stays }: StopFormProps) {
         body: JSON.stringify(snakecasedStop),
         headers: {
           Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
       });

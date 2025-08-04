@@ -20,8 +20,9 @@ export default function LoginForm() {
       const res = await fetch("/users/sign_in", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
           Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           user: { email, password },

@@ -26,6 +26,7 @@ export default function ActivityForm({ trip }: ActivityFormProps) {
         body: JSON.stringify(activity),
         headers: {
           Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
       });
@@ -46,6 +47,7 @@ export default function ActivityForm({ trip }: ActivityFormProps) {
         }),
         headers: {
           Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
       });
@@ -93,7 +95,9 @@ export default function ActivityForm({ trip }: ActivityFormProps) {
   useEffect(() => {
     const fetchActivities = async () => {
       try {
-        const response = await window.fetch(`/api/activities`);
+        const response = await window.fetch(`/api/activities`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
         if (!response.ok) throw Error(response.statusText);
         const data = await response.json();
         setActivities(data);

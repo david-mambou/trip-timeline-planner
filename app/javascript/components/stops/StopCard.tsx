@@ -21,6 +21,7 @@ export default function StopCard({ stop, nextStopId, stay, activities, transfer 
         method: "DELETE",
         headers: {
           Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
       });
@@ -36,6 +37,7 @@ export default function StopCard({ stop, nextStopId, stay, activities, transfer 
         method: "DELETE",
         headers: {
           Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
       });
