@@ -21,9 +21,11 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Button,
 } from "@chakra-ui/react";
 import { BellIcon, ChevronDownIcon, GlobeAltIcon, MenuIcon } from "@heroicons/react/outline";
 import { IconType } from "react-icons";
+import { useNavigate } from "react-router-dom";
 
 interface LinkItemProps {
   name: string;
@@ -131,6 +133,25 @@ interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      await fetch(`/users/sign_out`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (err) {
+      console.error("Logout failed:", err);
+    } finally {
+      localStorage.removeItem("token");
+      navigate("/login");
+    }
+  };
+
   return (
     <Flex
       ml={{ base: 0, md: 60 }}
@@ -186,7 +207,9 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               <MenuItem>Settings</MenuItem>
               <MenuItem>Billing</MenuItem>
               <MenuDivider />
-              <MenuItem>Sign out</MenuItem>
+              <MenuItem as={Button} onClick={() => handleLogout()}>
+                Sign out
+              </MenuItem>
             </MenuList>
           </Menu>
         </Flex>
