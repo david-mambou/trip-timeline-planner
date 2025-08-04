@@ -1,4 +1,4 @@
-class Api::StopsController < ApplicationController
+class Api::StopsController < Api::BaseController
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token
 
