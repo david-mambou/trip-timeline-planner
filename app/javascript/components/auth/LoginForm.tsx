@@ -62,9 +62,9 @@ export default function LoginForm() {
         />
         <Button type="submit">Login</Button>
       </form>
-      <Link href="/users/auth/google_oauth2">
+      {/* <Link href="/users/auth/google_oauth2">
         <Button>Login with Google</Button>
-      </Link>
+      </Link> */}
     </>
   );
 }

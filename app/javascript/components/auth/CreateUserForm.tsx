@@ -55,9 +55,9 @@ export default function CreateUserForm() {
         />
         <Button type="submit">Create account</Button>
       </form>
-      <Link href="/users/auth/google_oauth2">
-        <Button>Login with Google</Button>
-      </Link>
+      {/* <Link href="/users/auth/google_oauth2">
+        <Button>Sign up with Google</Button>
+      </Link> */}
     </>
   );
 }
