@@ -31,7 +31,6 @@ export default function CreateUserForm() {
       const token = res.headers.get("Authorization")?.split("Bearer ")[1];
       if (token) {
         localStorage.setItem("token", token);
-        // onLogin?.(); // Callback if needed
       } else {
         throw new Error("No token received");
       }
