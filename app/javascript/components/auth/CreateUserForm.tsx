@@ -25,7 +25,7 @@ export default function CreateUserForm() {
 
       if (!res.ok) {
         const err = await res.json();
-        throw new Error(err.error || "Login failed");
+        throw new Error(err.error || "Signup failed");
       }
 
       const token = res.headers.get("Authorization")?.split("Bearer ")[1];
@@ -42,7 +42,7 @@ export default function CreateUserForm() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <h2>Create account</h2>
+        <h2>Signup</h2>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
         <Input
@@ -52,7 +52,7 @@ export default function CreateUserForm() {
           placeholder="Password"
           required
         />
-        <Button type="submit">Create account</Button>
+        <Button type="submit">Sign up</Button>
       </form>
       {/* <Link href="/users/auth/google_oauth2">
         <Button>Sign up with Google</Button>

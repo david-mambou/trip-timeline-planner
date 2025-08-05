@@ -1,10 +1,6 @@
-import { Button, Input, Link } from "@chakra-ui/react";
+import { Button, Input } from "@chakra-ui/react";
 import { SyntheticEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-// type LoginFormProps = {
-//   onLogin: any;
-// }
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -37,7 +33,6 @@ export default function LoginForm() {
       const token = res.headers.get("Authorization")?.split("Bearer ")[1];
       if (token) {
         localStorage.setItem("token", token);
-        // onLogin?.(); // Callback if needed
       } else {
         throw new Error("No token received");
       }
