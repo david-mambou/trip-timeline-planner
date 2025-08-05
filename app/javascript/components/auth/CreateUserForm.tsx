@@ -1,4 +1,4 @@
-import { Button, Input, Link } from "@chakra-ui/react";
+import { Button, Input } from "@chakra-ui/react";
 import { SyntheticEvent, useState } from "react";
 
 export default function CreateUserForm() {
