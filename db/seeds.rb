@@ -8,8 +8,8 @@
 
 # create two trips
 
-trip1 = Trip.create(name: "Thailand")
-trip2 = Trip.create(name: "Tohoku")
+trip1 = Trip.create(name: "Thailand", user_id: 1)
+trip2 = Trip.create(name: "Tohoku", user_id: 1)
 
 # create stays
 
