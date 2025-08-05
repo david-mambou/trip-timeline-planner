@@ -3,7 +3,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.from_omniauth(request.env['omniauth.auth'])
 
     if @user.persisted?
-      # For API, you might want to return a JWT token here
       sign_in @user
       token = Warden::JWTAuth::UserEncoder.new.call(@user, :user, nil).first
       render json: {
