@@ -5,15 +5,17 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user.persisted?
       # For API, you might want to return a JWT token here
       sign_in @user
-      render json: { token: current_token, user: @user }, status: :ok
+      token = Warden::JWTAuth::UserEncoder.new.call(@user, :user, nil).first
+      render json: {
+        token: token,
+        user: {
+          id: @user.id,
+          email: @user.email,
+          name: @user.name
+        }
+      }
     else
       render json: { error: 'Authentication failed' }, status: :unauthorized
     end
-  end
-
-  private
-
-  def current_token
-    request.env['warden-jwt_auth.token']
   end
 end
