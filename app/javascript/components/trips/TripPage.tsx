@@ -59,7 +59,9 @@ export default function TripPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await window.fetch(`/api/trips/${id}`);
+        const response = await window.fetch(`/api/trips/${id}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
         if (!response.ok) throw Error(response.statusText);
         const data = await response.json();
         setTrip(data);
@@ -68,7 +70,9 @@ export default function TripPage() {
         console.error(error);
       }
       try {
-        const response = await window.fetch(`/api/stops/${id}`);
+        const response = await window.fetch(`/api/stops/${id}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
         if (!response.ok) throw Error(response.statusText);
         const data = await response.json();
         const camelcasedData = camelcaseKeys(data);
@@ -78,7 +82,9 @@ export default function TripPage() {
         console.error(error);
       }
       try {
-        const response = await window.fetch(`/api/stays`);
+        const response = await window.fetch(`/api/stays`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
         if (!response.ok) throw Error(response.statusText);
         const data = await response.json();
         const camelcasedData = camelcaseKeys(data);
@@ -88,7 +94,9 @@ export default function TripPage() {
         console.error(error);
       }
       try {
-        const response = await window.fetch(`/api/transfers`);
+        const response = await window.fetch(`/api/transfers`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
         if (!response.ok) throw Error(response.statusText);
         const data = await response.json();
         const camelcasedData = camelcaseKeys(data);
@@ -108,7 +116,9 @@ export default function TripPage() {
     const fetchActivities = () => {
       stops?.map(async (stop) => {
         try {
-          const response = await window.fetch(`/api/stops/${stop.id}/activities`);
+          const response = await window.fetch(`/api/stops/${stop.id}/activities`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+          });
           if (!response.ok) throw Error(response.statusText);
           const data = await response.json();
           setActivities((prev) => ({

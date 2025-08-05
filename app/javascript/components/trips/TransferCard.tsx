@@ -27,6 +27,7 @@ export default function TransferCard({ transfer }: TransferCardProps) {
         method: "DELETE",
         headers: {
           Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
       });

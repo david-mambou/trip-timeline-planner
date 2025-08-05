@@ -52,7 +52,9 @@ export default function TransferForm({ trip }: TransferFormProps) {
     }
     const fetchData = async () => {
       try {
-        const response = await window.fetch(`/api/transfers/${transferId}`);
+        const response = await window.fetch(`/api/transfers/${transferId}`, {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        });
         if (!response.ok) throw Error(response.statusText);
         const data = await response.json();
         const camelcasedData = camelcaseKeys(data);
@@ -75,6 +77,7 @@ export default function TransferForm({ trip }: TransferFormProps) {
         body: JSON.stringify(snakecasedTransfer),
         headers: {
           Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
       });
@@ -96,6 +99,7 @@ export default function TransferForm({ trip }: TransferFormProps) {
         body: JSON.stringify(snakecasedTransfer),
         headers: {
           Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
       });

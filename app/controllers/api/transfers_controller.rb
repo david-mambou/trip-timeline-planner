@@ -1,4 +1,4 @@
-class Api::TransfersController < ApplicationController
+class Api::TransfersController < Api::BaseController
   before_action :set_transfer, only: %i[show update destroy]
 
   def index

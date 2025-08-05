@@ -1,4 +1,4 @@
-class Api::TripsController < ApplicationController
+class Api::TripsController < Api::BaseController
   before_action :set_trip, only: %i[show update destroy]
   def index
     @trips = Trip.all

@@ -26,6 +26,7 @@ export default function TripForm({ trip, inputMode }: TripFormProps) {
         body: JSON.stringify(trip),
         headers: {
           Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
       });
@@ -47,6 +48,7 @@ export default function TripForm({ trip, inputMode }: TripFormProps) {
         body: JSON.stringify(trip),
         headers: {
           Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
       });

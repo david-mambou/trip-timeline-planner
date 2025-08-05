@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
+  devise_for :users,
+              controllers: {
+              omniauth_callbacks: 'users/omniauth_callbacks',
+              sessions: 'users/sessions'
+              }
   root 'site#index'
 
+  get 'login', to: 'site#index'
+  get 'register', to: 'site#index'
   get 'trips', to: 'site#index'
   get 'trips/new', to: 'site#index'
   get 'trips/:id', to: 'site#index'
