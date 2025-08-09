@@ -35,14 +35,14 @@ trip1.stops << [stop1, stop2, stop3]
 
 # create activities
 
-activity1 = Activity.create(name: "Phuket Big Buddha", price: 600)
-activity7 = Activity.create(name: "Freedom Beach", price: 100)
-activity2 = Activity.create(name: "Ayutthaya", price: 1100)
-activity8 = Activity.create(name: "Thai Royal Palace", price: 3000)
-activity3 = Activity.create(name: "Doi Inthanon", price: 900)
-activity4 = Activity.create(name: "Matsushima", price: 1500)
-activity5 = Activity.create(name: "Zao Fox Village", price: 2200)
-activity6 = Activity.create(name: "Yamadera", price: 1300)
+activity1 = Activity.create(name: "Phuket Big Buddha", price: 600,user_id: 1)
+activity7 = Activity.create(name: "Freedom Beach", price: 100,user_id: 1)
+activity2 = Activity.create(name: "Ayutthaya", price: 1100,user_id: 1)
+activity8 = Activity.create(name: "Thai Royal Palace", price: 3000,user_id: 1))
+activity3 = Activity.create(name: "Doi Inthanon", price: 900,user_id: 1)
+activity4 = Activity.create(name: "Matsushima", price: 1500,user_id: 1)
+activity5 = Activity.create(name: "Zao Fox Village", price: 2200,user_id: 1)
+activity6 = Activity.create(name: "Yamadera", price: 1300,user_id: 1)
 
 # associate activities to stops
 

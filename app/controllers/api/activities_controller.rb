@@ -1,11 +1,12 @@
 class Api::ActivitiesController < Api::BaseController
   def index
-    @activities = Activity.all
+    @activities = current_user.activities
     render json: @activities
   end
 
   def create
     @activity = Activity.new(sanitized_params)
+    @activity.user = current_user
 
     if @activity.save
       render json: @activity, status: :created
