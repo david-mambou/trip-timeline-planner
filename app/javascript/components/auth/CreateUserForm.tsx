@@ -37,6 +37,7 @@ export default function CreateUserForm() {
       } else {
         throw new Error("No token received");
       }
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
