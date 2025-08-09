@@ -1,10 +1,22 @@
-import { Button, Input } from "@chakra-ui/react";
-import { SyntheticEvent, useState } from "react";
+import { Button, Input, Text } from "@chakra-ui/react";
+import { SyntheticEvent, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuthStatus } from "~/javascript/hooks/useAuthStatus";
 
 export default function CreateUserForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const isLoggedIn = useAuthStatus();
+  const navigate = useNavigate();
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -34,6 +46,7 @@ export default function CreateUserForm() {
       } else {
         throw new Error("No token received");
       }
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
@@ -42,7 +55,7 @@ export default function CreateUserForm() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <h2>Signup</h2>
+        <h2>Register</h2>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
         <Input
@@ -52,7 +65,9 @@ export default function CreateUserForm() {
           placeholder="Password"
           required
         />
-        <Button type="submit">Sign up</Button>
+        <Button type="submit">Register</Button>
+        <Text>Already have an account?</Text>
+        <Button onClick={() => navigate("/login")}>Login</Button>
       </form>
       {/* <Link href="/users/auth/google_oauth2">
         <Button>Sign up with Google</Button>

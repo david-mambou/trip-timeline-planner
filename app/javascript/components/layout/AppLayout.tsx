@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import { ReactNode } from "react";
 import {
   IconButton,
   Avatar,
@@ -18,7 +18,6 @@ import {
   FlexProps,
   Menu,
   MenuButton,
-  MenuDivider,
   MenuItem,
   MenuList,
   Button,
@@ -26,6 +25,7 @@ import {
 import { BellIcon, ChevronDownIcon, GlobeAltIcon, MenuIcon } from "@heroicons/react/outline";
 import { IconType } from "react-icons";
 import { useNavigate } from "react-router-dom";
+import { useAuthStatus } from "~/javascript/hooks/useAuthStatus";
 
 interface LinkItemProps {
   name: string;
@@ -134,6 +134,7 @@ interface MobileProps extends FlexProps {
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const navigate = useNavigate();
+  const isLoggedIn = useAuthStatus();
 
   const handleLogout = async () => {
     const token = localStorage.getItem("token");
@@ -203,13 +204,16 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
               bg={useColorModeValue("white", "gray.900")}
               borderColor={useColorModeValue("gray.200", "gray.700")}
             >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Settings</MenuItem>
-              <MenuItem>Billing</MenuItem>
-              <MenuDivider />
-              <MenuItem as={Button} onClick={() => handleLogout()}>
-                Sign out
-              </MenuItem>
+              {isLoggedIn ? (
+                <MenuItem as={Button} onClick={() => handleLogout()}>
+                  Logout
+                </MenuItem>
+              ) : (
+                <>
+                  <MenuItem onClick={() => navigate("/login")}>Login</MenuItem>
+                  <MenuItem onClick={() => navigate("/register")}>Register</MenuItem>
+                </>
+              )}
             </MenuList>
           </Menu>
         </Flex>
