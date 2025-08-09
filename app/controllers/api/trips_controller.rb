@@ -1,7 +1,7 @@
 class Api::TripsController < Api::BaseController
   before_action :set_trip, only: %i[show update destroy]
   def index
-    @trips = Trip.all
+    @trips = current_user.trips
     render json: @trips
   end
 
