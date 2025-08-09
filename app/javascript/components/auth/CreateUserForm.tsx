@@ -42,7 +42,7 @@ export default function CreateUserForm() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <h2>Signup</h2>
+        <h2>Register</h2>
         {error && <p style={{ color: "red" }}>{error}</p>}
         <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
         <Input
@@ -52,7 +52,7 @@ export default function CreateUserForm() {
           placeholder="Password"
           required
         />
-        <Button type="submit">Sign up</Button>
+        <Button type="submit">Register</Button>
       </form>
       {/* <Link href="/users/auth/google_oauth2">
         <Button>Sign up with Google</Button>
