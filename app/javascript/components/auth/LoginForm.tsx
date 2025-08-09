@@ -1,12 +1,20 @@
 import { Button, Input } from "@chakra-ui/react";
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuthStatus } from "~/javascript/hooks/useAuthStatus";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const isLoggedIn = useAuthStatus();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/");
+    }
+  }, [isLoggedIn, navigate]);
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
