@@ -1,10 +1,13 @@
-import { Button, Input } from "@chakra-ui/react";
+import { Button, Input, Text } from "@chakra-ui/react";
 import { SyntheticEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateUserForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -53,6 +56,8 @@ export default function CreateUserForm() {
           required
         />
         <Button type="submit">Register</Button>
+        <Text>Already have an account?</Text>
+        <Button onClick={() => navigate("/login")}>Login</Button>
       </form>
       {/* <Link href="/users/auth/google_oauth2">
         <Button>Sign up with Google</Button>
