@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_05_195206) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_09_113649) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -19,6 +19,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_195206) do
     t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_activities_on_user_id"
   end
 
   create_table "jwt_denylists", force: :cascade do |t|
@@ -34,6 +36,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_195206) do
     t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_stays_on_user_id"
   end
 
   create_table "stops", force: :cascade do |t|
@@ -93,6 +97,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_05_195206) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "activities", "users"
+  add_foreign_key "stays", "users"
   add_foreign_key "stops", "stays"
   add_foreign_key "stops", "transfers", column: "inbound_id", on_delete: :nullify
   add_foreign_key "stops", "transfers", column: "outbound_id", on_delete: :nullify
