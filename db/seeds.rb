@@ -6,6 +6,14 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+# create a user 1
+
+User.create!(
+  email: "user1@t.co",
+  password: "password123",
+  password_confirmation: "password123"
+)
+
 # create two trips
 
 trip1 = Trip.create(name: "Thailand", user_id: 1)
