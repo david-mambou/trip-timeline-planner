@@ -4,6 +4,8 @@ Rails.application.routes.draw do
               omniauth_callbacks: 'users/omniauth_callbacks',
               sessions: 'users/sessions'
               }
+
+
   root 'site#index'
 
   get 'login', to: 'site#index'
@@ -24,6 +26,7 @@ Rails.application.routes.draw do
     resources :activities, only: %i(index create)
     resources :stops_activities, only: %i(index)
     resources :trips, only: %i(index show create update destroy)
+    get "/auth/status", to: "auth#status"
     get 'stops/:trip_id', to: 'stops#list_per_trip'
     put 'stops/:id/activities/add', to: 'stops#add_activity'
     delete 'stops/:id/activities/:activity_id', to: 'stops#remove_activity'
