@@ -13,11 +13,11 @@ trip2 = Trip.create(name: "Tohoku", user_id: 1)
 
 # create stays
 
-stay1 = Stay.create(name: "Beach Hotel Patong", price: 1200)
-stay2 = Stay.create(name: "Maha Nakhon Hotel", price: 3000)
-stay3 = Stay.create(name: "The Hill Chiang Mai", price: 1500)
-stay4 = Stay.create(name: "Capsule First Sendai", price: 2500)
-stay5 = Stay.create(name: "Business Inn Yamagata", price: 6500)
+stay1 = Stay.create(name: "Beach Hotel Patong", price: 1200, user_id: 1)
+stay2 = Stay.create(name: "Maha Nakhon Hotel", price: 3000, user_id: 1)
+stay3 = Stay.create(name: "The Hill Chiang Mai", price: 1500, user_id: 1)
+stay4 = Stay.create(name: "Capsule First Sendai", price: 2500, user_id: 1)
+stay5 = Stay.create(name: "Business Inn Yamagata", price: 6500, user_id: 1)
 
 # create stops
 
