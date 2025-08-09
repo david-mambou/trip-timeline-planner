@@ -5,7 +5,6 @@ Rails.application.routes.draw do
               sessions: 'users/sessions'
               }
 
-
   root 'site#index'
 
   get 'login', to: 'site#index'
