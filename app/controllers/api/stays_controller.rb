@@ -1,6 +1,6 @@
 class Api::StaysController < Api::BaseController
   def index
-    @stays = Stay.all
+    @stays = current_user.stays
     render json: @stays
   end
 end

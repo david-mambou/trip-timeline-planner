@@ -6,18 +6,26 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
+# create a user 1
+
+User.create!(
+  email: "user1@t.co",
+  password: "password123",
+  password_confirmation: "password123"
+)
+
 # create two trips
 
-trip1 = Trip.create(name: "Thailand")
-trip2 = Trip.create(name: "Tohoku")
+trip1 = Trip.create(name: "Thailand", user_id: 1)
+trip2 = Trip.create(name: "Tohoku", user_id: 1)
 
 # create stays
 
-stay1 = Stay.create(name: "Beach Hotel Patong", price: 1200)
-stay2 = Stay.create(name: "Maha Nakhon Hotel", price: 3000)
-stay3 = Stay.create(name: "The Hill Chiang Mai", price: 1500)
-stay4 = Stay.create(name: "Capsule First Sendai", price: 2500)
-stay5 = Stay.create(name: "Business Inn Yamagata", price: 6500)
+stay1 = Stay.create(name: "Beach Hotel Patong", price: 1200, user_id: 1)
+stay2 = Stay.create(name: "Maha Nakhon Hotel", price: 3000, user_id: 1)
+stay3 = Stay.create(name: "The Hill Chiang Mai", price: 1500, user_id: 1)
+stay4 = Stay.create(name: "Capsule First Sendai", price: 2500, user_id: 1)
+stay5 = Stay.create(name: "Business Inn Yamagata", price: 6500, user_id: 1)
 
 # create stops
 
@@ -35,14 +43,14 @@ trip1.stops << [stop1, stop2, stop3]
 
 # create activities
 
-activity1 = Activity.create(name: "Phuket Big Buddha", price: 600)
-activity7 = Activity.create(name: "Freedom Beach", price: 100)
-activity2 = Activity.create(name: "Ayutthaya", price: 1100)
-activity8 = Activity.create(name: "Thai Royal Palace", price: 3000)
-activity3 = Activity.create(name: "Doi Inthanon", price: 900)
-activity4 = Activity.create(name: "Matsushima", price: 1500)
-activity5 = Activity.create(name: "Zao Fox Village", price: 2200)
-activity6 = Activity.create(name: "Yamadera", price: 1300)
+activity1 = Activity.create(name: "Phuket Big Buddha", price: 600,user_id: 1)
+activity7 = Activity.create(name: "Freedom Beach", price: 100,user_id: 1)
+activity2 = Activity.create(name: "Ayutthaya", price: 1100,user_id: 1)
+activity8 = Activity.create(name: "Thai Royal Palace", price: 3000, user_id: 1)
+activity3 = Activity.create(name: "Doi Inthanon", price: 900,user_id: 1)
+activity4 = Activity.create(name: "Matsushima", price: 1500,user_id: 1)
+activity5 = Activity.create(name: "Zao Fox Village", price: 2200,user_id: 1)
+activity6 = Activity.create(name: "Yamadera", price: 1300,user_id: 1)
 
 # associate activities to stops
 

@@ -1,12 +1,14 @@
 class Api::TripsController < Api::BaseController
   before_action :set_trip, only: %i[show update destroy]
   def index
-    @trips = Trip.all
+    @trips = current_user.trips
     render json: @trips
   end
 
   def create
     @trip = Trip.new(sanitized_params)
+    @trip.user = current_user
+    
     if @trip.save!
       render json: @trip, status: :created
     else
