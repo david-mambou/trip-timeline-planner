@@ -7,6 +7,8 @@ class Api::TripsController < Api::BaseController
 
   def create
     @trip = Trip.new(sanitized_params)
+    @trip.user = current_user
+    
     if @trip.save!
       render json: @trip, status: :created
     else
