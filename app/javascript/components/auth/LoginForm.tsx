@@ -56,6 +56,7 @@ export default function LoginForm() {
           required
         />
         <Button type="submit">Login</Button>
+        <Button onClick={() => navigate("/register")}>Register</Button>
       </form>
       {/* <Link href="/users/auth/google_oauth2">
         <Button>Login with Google</Button>
