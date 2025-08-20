@@ -26,6 +26,7 @@ Rails.application.routes.draw do
     resources :stops_activities, only: %i(index)
     resources :trips, only: %i(index show create update destroy)
     get "/auth/status", to: "auth#status"
+    get "/auth/me", to: "auth#me"
     get 'stops/:trip_id', to: 'stops#list_per_trip'
     put 'stops/:id/activities/add', to: 'stops#add_activity'
     delete 'stops/:id/activities/:activity_id', to: 'stops#remove_activity'
