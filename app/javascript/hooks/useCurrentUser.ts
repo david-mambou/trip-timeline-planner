@@ -14,12 +14,15 @@ export function useCurrentUser() {
       const token = localStorage.getItem("token");
       if (!token) {
         setLoading(false);
-        return;
+        return { user: null };
       }
       try {
         const res = await fetch("/api/auth/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
+        if (res.status === 401) {
+          return { user: null };
+        }
         if (res.ok) {
           const data = await res.json();
           setUser(data);

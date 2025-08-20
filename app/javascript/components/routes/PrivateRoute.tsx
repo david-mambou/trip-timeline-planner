@@ -1,6 +1,12 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useCurrentUser } from "~/javascript/hooks/useCurrentUser";
 
 export default function PrivateRoute() {
-  const token = localStorage.getItem("token");
-  return token ? <Outlet /> : <Navigate to="/login" replace />;
+  const { user, loading } = useCurrentUser();
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  return user ? <Outlet /> : <Navigate to="/login" replace />;
 }
