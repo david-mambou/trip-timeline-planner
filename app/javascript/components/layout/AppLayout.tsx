@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import {
   IconButton,
-  Avatar,
   Box,
   CloseButton,
   Flex,
@@ -103,7 +102,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       <Box>
         <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
           <Text fontSize="2xl" fontWeight="bold">
-            MyTrips
+            Trip Timeline Planner
           </Text>
           <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
         </Flex>
