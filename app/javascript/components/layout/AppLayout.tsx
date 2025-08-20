@@ -21,7 +21,7 @@ import {
   MenuList,
   Button,
 } from "@chakra-ui/react";
-import { ChevronDownIcon, GlobeAltIcon, MenuIcon } from "@heroicons/react/outline";
+import { ChevronDownIcon, GlobeAltIcon, MenuIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { IconType } from "react-icons";
 import { useNavigate } from "react-router-dom";
 import { useAuthStatus } from "~/javascript/hooks/useAuthStatus";
@@ -117,12 +117,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
         <Menu>
           <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: "none" }} w="full">
             <HStack>
-              <Avatar
-                size={"sm"}
-                src={
-                  "https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                }
-              />
+              <UserCircleIcon height={30} width={30} />
               <Text fontSize="sm">{user ? user.email : "Guest"}</Text>
               <Box>
                 <ChevronDownIcon width={20} height={20} />
