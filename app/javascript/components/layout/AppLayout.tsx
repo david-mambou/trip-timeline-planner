@@ -1,12 +1,10 @@
 import { ReactNode } from "react";
 import {
   IconButton,
-  Avatar,
   Box,
   CloseButton,
   Flex,
   HStack,
-  VStack,
   Icon,
   useColorModeValue,
   Link,
@@ -22,10 +20,11 @@ import {
   MenuList,
   Button,
 } from "@chakra-ui/react";
-import { BellIcon, ChevronDownIcon, GlobeAltIcon, MenuIcon } from "@heroicons/react/outline";
+import { ChevronDownIcon, GlobeAltIcon, MenuIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { IconType } from "react-icons";
 import { useNavigate } from "react-router-dom";
 import { useAuthStatus } from "~/javascript/hooks/useAuthStatus";
+import { useCurrentUser } from "~/javascript/hooks/useCurrentUser";
 
 interface LinkItemProps {
   name: string;
@@ -38,7 +37,7 @@ export default function SidebarWithHeader({ children }: { children: ReactNode })
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
-      <SidebarContent onClose={() => onClose} display={{ base: "none", md: "block" }} />
+      <SidebarContent onClose={() => onClose} display={{ base: "none", md: "flex" }} />
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
@@ -49,7 +48,7 @@ export default function SidebarWithHeader({ children }: { children: ReactNode })
         size="full"
       >
         <DrawerContent>
-          <SidebarContent onClose={onClose} />
+          <SidebarContent display="flex" onClose={onClose} />
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
@@ -66,6 +65,27 @@ interface SidebarProps extends BoxProps {
 }
 
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
+  const navigate = useNavigate();
+  const isLoggedIn = useAuthStatus();
+  const { user } = useCurrentUser();
+
+  const handleLogout = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      await fetch(`/users/sign_out`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } catch (err) {
+      console.error("Logout failed:", err);
+    } finally {
+      localStorage.removeItem("token");
+      navigate("/login");
+    }
+  };
+
   return (
     <Box
       transition="3s ease"
@@ -75,19 +95,48 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       w={{ base: "full", md: 60 }}
       pos="fixed"
       h="full"
+      flexDirection="column"
+      justifyContent="space-between"
       {...rest}
     >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontWeight="bold">
-          MyTrips
-        </Text>
-        <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
-      </Flex>
-      {LinkItems.map((link) => (
-        <NavItem key={link.name} {...link}>
-          {link.name}
-        </NavItem>
-      ))}
+      <Box>
+        <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+          <Text fontSize="2xl" fontWeight="bold">
+            Trip Timeline Planner
+          </Text>
+          <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
+        </Flex>
+        {LinkItems.map((link) => (
+          <NavItem key={link.name} {...link}>
+            {link.name}
+          </NavItem>
+        ))}
+      </Box>
+      <Box mb={4} mx={4} px={4}>
+        <Menu>
+          <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: "none" }} w="full">
+            <HStack>
+              <UserCircleIcon height={30} width={30} />
+              <Text fontSize="sm">{user ? user.email : "Guest"}</Text>
+              <Box>
+                <ChevronDownIcon width={20} height={20} />
+              </Box>
+            </HStack>
+          </MenuButton>
+          <MenuList bg={useColorModeValue("white", "gray.900")} borderColor={useColorModeValue("gray.200", "gray.700")}>
+            {isLoggedIn ? (
+              <MenuItem as={Button} onClick={() => handleLogout()}>
+                Logout
+              </MenuItem>
+            ) : (
+              <>
+                <MenuItem onClick={() => navigate("/login")}>Login</MenuItem>
+                <MenuItem onClick={() => navigate("/register")}>Register</MenuItem>
+              </>
+            )}
+          </MenuList>
+        </Menu>
+      </Box>
     </Box>
   );
 };
@@ -133,91 +182,9 @@ interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
-  const navigate = useNavigate();
-  const isLoggedIn = useAuthStatus();
-
-  const handleLogout = async () => {
-    const token = localStorage.getItem("token");
-    try {
-      await fetch(`/users/sign_out`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-    } catch (err) {
-      console.error("Logout failed:", err);
-    } finally {
-      localStorage.removeItem("token");
-      navigate("/login");
-    }
-  };
-
   return (
-    <Flex
-      ml={{ base: 0, md: 60 }}
-      px={{ base: 4, md: 4 }}
-      height="20"
-      alignItems="center"
-      bg={useColorModeValue("white", "gray.900")}
-      borderBottomWidth="1px"
-      borderBottomColor={useColorModeValue("gray.200", "gray.700")}
-      justifyContent={{ base: "space-between", md: "flex-end" }}
-      {...rest}
-    >
-      <IconButton
-        display={{ base: "flex", md: "none" }}
-        onClick={onOpen}
-        variant="outline"
-        aria-label="open menu"
-        icon={<MenuIcon />}
-      />
-
-      <Text display={{ base: "flex", md: "none" }} fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-        Logo
-      </Text>
-
-      <HStack spacing={{ base: "0", md: "6" }}>
-        <IconButton size="lg" variant="ghost" aria-label="open menu" icon={<BellIcon width={20} height={20} />} />
-        <Flex alignItems={"center"}>
-          <Menu>
-            <MenuButton py={2} transition="all 0.3s" _focus={{ boxShadow: "none" }}>
-              <HStack>
-                <Avatar
-                  size={"sm"}
-                  src={
-                    "https://images.unsplash.com/photo-1619946794135-5bc917a27793?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
-                  }
-                />
-                <VStack display={{ base: "none", md: "flex" }} alignItems="flex-start" spacing="1px" ml="2">
-                  <Text fontSize="sm">Justina Clark</Text>
-                  <Text fontSize="xs" color="gray.600">
-                    Admin
-                  </Text>
-                </VStack>
-                <Box display={{ base: "none", md: "flex" }}>
-                  <ChevronDownIcon width={20} height={20} />
-                </Box>
-              </HStack>
-            </MenuButton>
-            <MenuList
-              bg={useColorModeValue("white", "gray.900")}
-              borderColor={useColorModeValue("gray.200", "gray.700")}
-            >
-              {isLoggedIn ? (
-                <MenuItem as={Button} onClick={() => handleLogout()}>
-                  Logout
-                </MenuItem>
-              ) : (
-                <>
-                  <MenuItem onClick={() => navigate("/login")}>Login</MenuItem>
-                  <MenuItem onClick={() => navigate("/register")}>Register</MenuItem>
-                </>
-              )}
-            </MenuList>
-          </Menu>
-        </Flex>
-      </HStack>
-    </Flex>
+    <Box display={{ base: "flex", md: "none" }} position="fixed" top={4} left={4} zIndex={1000} {...rest}>
+      <IconButton variant="outline" aria-label="open menu" icon={<MenuIcon />} onClick={onOpen} />
+    </Box>
   );
 };
