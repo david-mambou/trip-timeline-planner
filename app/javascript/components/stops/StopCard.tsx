@@ -25,6 +25,7 @@ export default function StopCard({ stop, nextStopId, stay, activities, transfer 
           "Content-Type": "application/json",
         },
       });
+      navigate(0);
     } catch (error) {
       console.error(error);
     }
@@ -40,6 +41,7 @@ export default function StopCard({ stop, nextStopId, stay, activities, transfer 
           "Content-Type": "application/json",
         },
       });
+      navigate(0);
     } catch (error) {
       console.error(error);
     }

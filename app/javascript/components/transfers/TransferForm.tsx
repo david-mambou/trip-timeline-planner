@@ -85,6 +85,7 @@ export default function TransferForm({ trip }: TransferFormProps) {
 
       window.alert("Transfer added!");
       navigate(`/trips/${trip.id}`);
+      navigate(0);
     } catch (error) {
       console.error(error);
     }
@@ -106,6 +107,7 @@ export default function TransferForm({ trip }: TransferFormProps) {
 
       window.alert("Transfer updated!");
       navigate(`/trips/${trip.id}`);
+      navigate(0);
     } catch (error) {
       console.error(error);
     }

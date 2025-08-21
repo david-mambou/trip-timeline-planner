@@ -35,6 +35,7 @@ export default function TripForm({ trip, inputMode }: TripFormProps) {
       const savedTrip = await response.json();
       window.alert("Trip added!");
       navigate(`/trips/${savedTrip.id}`);
+      navigate(0);
     } catch (error) {
       console.error(error);
     }
@@ -55,6 +56,7 @@ export default function TripForm({ trip, inputMode }: TripFormProps) {
 
       window.alert("Trip updated!");
       navigate(`/trips/${trip.id}`);
+      navigate(0);
     } catch (error) {
       console.error(error);
     }

@@ -31,6 +31,7 @@ export default function TransferCard({ transfer }: TransferCardProps) {
           "Content-Type": "application/json",
         },
       });
+      navigate(0);
     } catch (error) {
       console.error(error);
     }

@@ -17,6 +17,7 @@ export default function TripIntroCard({ trip }: TripCardProps) {
       });
       window.alert("Trip deleted");
       navigate("/trips");
+      navigate(0);
     } catch (error) {
       console.error(error);
     }
