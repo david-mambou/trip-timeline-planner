@@ -72,7 +72,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const handleLogout = async () => {
     const token = localStorage.getItem("token");
     try {
-      const res = await fetch(`/users/sign_out`, {
+      await fetch(`/users/sign_out`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
