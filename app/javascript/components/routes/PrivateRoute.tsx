@@ -17,5 +17,9 @@ export default function PrivateRoute() {
     return <div>Loading...</div>;
   }
 
+  if (!user) {
+    return null;
+  }
+
   return <Outlet />;
 }
