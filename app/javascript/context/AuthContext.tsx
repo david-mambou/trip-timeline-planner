@@ -4,11 +4,15 @@ import { apiFetch } from "../services/api";
 type AuthContextType = {
   user: { id: number; email: string } | null;
   loading: boolean;
+  setUser: (user: { id: number; email: string } | null) => void;
 };
 
 const AuthContext = createContext<AuthContextType>({
   user: null,
   loading: true,
+  setUser: () => {
+    throw new Error("setUser must be used within AuthContextProvider");
+  },
 });
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -40,7 +44,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
-  return <AuthContext.Provider value={{ user, loading }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, setUser, loading }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuthStatus() {
@@ -48,6 +52,6 @@ export function useAuthStatus() {
 }
 
 export function useCurrentUser() {
-  const { user, loading } = useContext(AuthContext);
-  return { user, loading };
+  const { user, setUser, loading } = useContext(AuthContext);
+  return { user, setUser, loading };
 }

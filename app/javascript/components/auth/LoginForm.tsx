@@ -1,12 +1,15 @@
 import { Button, Input } from "@chakra-ui/react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthStatus } from "~/javascript/context/AuthContext";
+import { useAuthStatus, useCurrentUser } from "~/javascript/context/AuthContext";
+import { apiFetch } from "~/javascript/services/api";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const { setUser } = useCurrentUser();
 
   const isLoggedIn = useAuthStatus();
   const navigate = useNavigate();
@@ -45,6 +48,13 @@ export default function LoginForm() {
       } else {
         throw new Error("No token received");
       }
+
+      const data = await res.json();
+
+      if (data.user) {
+        setUser(data.user);
+      }
+
       navigate("/");
     } catch (error) {
       console.error(error);

@@ -67,12 +67,12 @@ interface SidebarProps extends BoxProps {
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const navigate = useNavigate();
   const isLoggedIn = useAuthStatus();
-  const { user } = useCurrentUser();
+  const { user, setUser } = useCurrentUser();
 
   const handleLogout = async () => {
     const token = localStorage.getItem("token");
     try {
-      await fetch(`/users/sign_out`, {
+      const res = await fetch(`/users/sign_out`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -81,6 +81,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     } catch (err) {
       console.error("Logout failed:", err);
     } finally {
+      setUser(null);
       localStorage.removeItem("token");
       navigate("/login");
     }
