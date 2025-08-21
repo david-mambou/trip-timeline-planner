@@ -55,7 +55,6 @@ export default function ActivityForm({ trip }: ActivityFormProps) {
 
       window.alert("Activity added!");
       navigate(`/trips/${trip.id}`);
-      navigate(0);
     } catch (error) {
       console.error(error);
     }
