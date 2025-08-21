@@ -23,8 +23,8 @@ import {
 import { ChevronDownIcon, GlobeAltIcon, MenuIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { IconType } from "react-icons";
 import { useNavigate } from "react-router-dom";
-import { useAuthStatus } from "~/javascript/hooks/useAuthStatus";
-import { useCurrentUser } from "~/javascript/hooks/useCurrentUser";
+import { useAuthStatus } from "~/javascript/context/AuthContext";
+import { useCurrentUser } from "~/javascript/context/AuthContext";
 
 interface LinkItemProps {
   name: string;
@@ -67,7 +67,7 @@ interface SidebarProps extends BoxProps {
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const navigate = useNavigate();
   const isLoggedIn = useAuthStatus();
-  const { user } = useCurrentUser();
+  const { user, setUser } = useCurrentUser();
 
   const handleLogout = async () => {
     const token = localStorage.getItem("token");
@@ -81,6 +81,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
     } catch (err) {
       console.error("Logout failed:", err);
     } finally {
+      setUser(null);
       localStorage.removeItem("token");
       navigate("/login");
     }

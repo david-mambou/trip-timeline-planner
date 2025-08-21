@@ -1,6 +1,25 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
+import { useCurrentUser } from "~/javascript/context/AuthContext";
 
 export default function PrivateRoute() {
-  const token = localStorage.getItem("token");
-  return token ? <Outlet /> : <Navigate to="/login" replace />;
+  const { user, loading } = useCurrentUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      window.alert("You must be logged in to access this page.");
+      navigate("/login");
+    }
+  }, [user, loading, navigate]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user) {
+    return null;
+  }
+
+  return <Outlet />;
 }
