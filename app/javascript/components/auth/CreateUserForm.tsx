@@ -1,7 +1,7 @@
 import { Button, Input, Text } from "@chakra-ui/react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuthStatus } from "~/javascript/hooks/useAuthStatus";
+import { useAuthStatus } from "~/javascript/context/AuthContext";
 
 export default function CreateUserForm() {
   const [email, setEmail] = useState("");

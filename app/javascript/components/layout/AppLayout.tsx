@@ -23,8 +23,8 @@ import {
 import { ChevronDownIcon, GlobeAltIcon, MenuIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { IconType } from "react-icons";
 import { useNavigate } from "react-router-dom";
-import { useAuthStatus } from "~/javascript/hooks/useAuthStatus";
-import { useCurrentUser } from "~/javascript/hooks/useCurrentUser";
+import { useAuthStatus } from "~/javascript/context/AuthContext";
+import { useCurrentUser } from "~/javascript/context/AuthContext";
 
 interface LinkItemProps {
   name: string;

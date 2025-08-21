@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useCurrentUser } from "~/javascript/hooks/useCurrentUser";
+import { useCurrentUser } from "~/javascript/context/AuthContext";
 
 export default function PrivateRoute() {
   const { user, loading } = useCurrentUser();
