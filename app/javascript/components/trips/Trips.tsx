@@ -1,6 +1,6 @@
 import { Button, SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import TripCard from "./TripCard";
 
 export type Trip = {
@@ -10,6 +10,8 @@ export type Trip = {
 
 export default function Trips() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const inputMode = location.pathname.includes("new") ? "create" : "edit";
   const [trips, setTrips] = useState<Trip[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -32,7 +34,7 @@ export default function Trips() {
     };
 
     fetchData();
-  }, []);
+  }, [location.key]);
 
   return (
     <>
