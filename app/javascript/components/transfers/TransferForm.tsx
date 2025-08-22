@@ -200,7 +200,9 @@ export default function TransferForm({ trip }: TransferFormProps) {
         <Input defaultValue={transfer?.price} name="price"></Input>
         <Button type="submit">{transferId ? "Update transfer" : "Add transfer"}</Button>
       </form>
-      <Button onClick={() => navigate(`/trips/${trip.id}`)}>Back to Trip</Button>
+      <Button colorScheme="blackAlpha" onClick={() => navigate(`/trips/${trip.id}`)}>
+        Back to Trip
+      </Button>
     </>
   );
 }

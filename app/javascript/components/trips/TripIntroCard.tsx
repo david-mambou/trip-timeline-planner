@@ -28,7 +28,9 @@ export default function TripIntroCard({ trip }: TripCardProps) {
         <Heading>{trip.name}</Heading>
       </Stack>
       <Button onClick={() => navigate(`/trips/${trip.id}/edit`)}>Edit trip</Button>
-      <Button onClick={() => deleteTrip(trip.id)}>Delete trip</Button>
+      <Button colorScheme="red" onClick={() => deleteTrip(trip.id)}>
+        Delete trip
+      </Button>
     </Card>
   );
 }

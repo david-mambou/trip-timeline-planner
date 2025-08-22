@@ -11,7 +11,6 @@ export type Trip = {
 export default function Trips() {
   const navigate = useNavigate();
   const location = useLocation();
-  const inputMode = location.pathname.includes("new") ? "create" : "edit";
   const [trips, setTrips] = useState<Trip[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
@@ -43,7 +42,9 @@ export default function Trips() {
           <TripCard key={idx} trip={trip} />
         ))}
       </SimpleGrid>
-      <Button onClick={() => navigate("./new")}>Add Trip</Button>
+      <Button colorScheme="blue" onClick={() => navigate("./new")}>
+        Add Trip
+      </Button>
     </>
   );
 }

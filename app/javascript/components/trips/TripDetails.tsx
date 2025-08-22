@@ -16,7 +16,9 @@ export default function TripDetails({ stops, stays, activities, transfers, onDel
 
   return (
     <>
-      <Button onClick={() => navigate("./stops/new")}>Add stop</Button>
+      <Button colorScheme="blue" onClick={() => navigate("./stops/new")}>
+        Add stop
+      </Button>
       <VStack>
         {stops?.map(
           (stop, idx) =>

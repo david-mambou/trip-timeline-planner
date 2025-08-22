@@ -66,8 +66,12 @@ export default function StopCard({ stop, nextStopId, stay, activities, transfer,
                   <TagCloseButton onClick={() => removeActivity(stop.id, activity.id)} />
                 </Tag>
               ))}
-              <Button onClick={() => navigate(`./stops/${stop.id}/activities/add`)}>Add activity</Button>
-              <Button onClick={() => deleteStop(stop.id)}>Delete stop</Button>
+              <Button colorScheme="blue" onClick={() => navigate(`./stops/${stop.id}/activities/add`)}>
+                Add activity
+              </Button>
+              <Button colorScheme="red" onClick={() => deleteStop(stop.id)}>
+                Delete stop
+              </Button>
             </Box>
           </Flex>
         </CardBody>

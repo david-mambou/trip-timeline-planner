@@ -123,7 +123,7 @@ export default function ActivityForm({ trip }: ActivityFormProps) {
                 {activity.name}
               </option>
             ))}
-          <option value={0}>Add activity...</option>
+          <option value={0}>New activity...</option>
         </Select>
         {selectedActivity === 0 && (
           <>
@@ -133,9 +133,13 @@ export default function ActivityForm({ trip }: ActivityFormProps) {
             <Input name="price"></Input>
           </>
         )}
-        <Button type="submit">Add activity</Button>
+        <Button colorScheme="blue" type="submit">
+          Add activity
+        </Button>
       </form>
-      <Button onClick={() => navigate(`/trips/${trip.id}`)}>Back to Trip</Button>
+      <Button colorScheme="blackAlpha" onClick={() => navigate(`/trips/${trip.id}`)}>
+        Back to Trip
+      </Button>
     </>
   );
 }

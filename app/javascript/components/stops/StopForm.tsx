@@ -74,7 +74,9 @@ export default function StopForm({ trip, stays }: StopFormProps) {
 
   return (
     <>
-      <Button onClick={() => navigate("./../..")}>Back to Trip</Button>
+      <Button colorScheme="blackAlpha" onClick={() => navigate("./../..")}>
+        Back to Trip
+      </Button>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <Input name="name" placeholder="France" />
@@ -91,7 +93,9 @@ export default function StopForm({ trip, stays }: StopFormProps) {
           ))}
           <option value={0}>Other...</option>
         </Select>
-        <Button type="submit">Add stop</Button>
+        <Button colorScheme="blue" type="submit">
+          Add stop
+        </Button>
       </form>
     </>
   );

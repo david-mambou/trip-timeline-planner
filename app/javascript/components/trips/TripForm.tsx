@@ -85,11 +85,15 @@ export default function TripForm({ trip, inputMode }: TripFormProps) {
 
   return (
     <>
-      <Button onClick={() => navigate("./..")}>Back to Trips</Button>
+      <Button colorScheme="blackAlpha" onClick={() => navigate("./..")}>
+        Back to Trip
+      </Button>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <Input defaultValue={trip?.name} name="name" placeholder="France" />
-        <Button type="submit">{inputMode === "create" ? "Add trip" : "Update trip"}</Button>
+        <Button colorScheme="blue" type="submit">
+          {inputMode === "create" ? "Add trip" : "Update trip"}
+        </Button>
       </form>
     </>
   );
