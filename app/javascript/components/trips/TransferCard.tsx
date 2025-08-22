@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export type TransferCardProps = {
   transfer: Transfer;
+  onDelete: () => Promise<void>;
 };
 
 const modeEmojis = {
@@ -18,7 +19,7 @@ const modeEmojis = {
   boat: "⛴️",
 };
 
-export default function TransferCard({ transfer }: TransferCardProps) {
+export default function TransferCard({ transfer, onDelete }: TransferCardProps) {
   const navigate = useNavigate();
 
   const deleteTransfer = async (id: number) => {
@@ -31,7 +32,7 @@ export default function TransferCard({ transfer }: TransferCardProps) {
           "Content-Type": "application/json",
         },
       });
-      navigate(0);
+      onDelete();
     } catch (error) {
       console.error(error);
     }
