@@ -23,12 +23,14 @@ export default function TripIntroCard({ trip }: TripCardProps) {
   };
 
   return (
-    <Card bg="white" direction="row" overflow="hidden">
+    <Card align="center" bg="white" direction="row" overflow="hidden">
       <Stack p="4">
         <Heading>{trip.name}</Heading>
       </Stack>
-      <Button onClick={() => navigate(`/trips/${trip.id}/edit`)}>Edit trip</Button>
-      <Button colorScheme="red" onClick={() => deleteTrip(trip.id)}>
+      <Button mx={2} onClick={() => navigate(`/trips/${trip.id}/edit`)}>
+        Edit trip
+      </Button>
+      <Button colorScheme="red" mx={2} onClick={() => deleteTrip(trip.id)}>
         Delete trip
       </Button>
     </Card>
