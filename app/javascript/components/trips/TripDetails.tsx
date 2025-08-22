@@ -16,10 +16,7 @@ export default function TripDetails({ stops, stays, activities, transfers, onDel
 
   return (
     <>
-      <Button colorScheme="blue" onClick={() => navigate("./stops/new")}>
-        Add stop
-      </Button>
-      <VStack>
+      <VStack mt={4}>
         {stops?.map(
           (stop, idx) =>
             stop.id && (
@@ -34,6 +31,9 @@ export default function TripDetails({ stops, stays, activities, transfers, onDel
               />
             ),
         )}
+        <Button colorScheme="blue" onClick={() => navigate("./stops/new")}>
+          Add stop
+        </Button>
       </VStack>
     </>
   );
