@@ -96,7 +96,10 @@ export default function StopCard({ stop, nextStopId, stay, activities, transfer,
         <Flex align="center" gap={4}>
           <QuestionMarkCircleIcon height={24} width={24} />
           How will you get to your next stop?
-          <Button onClick={() => navigate(`./transfers/add?isOutboundOf=${stop.id}&isInboundOf=${nextStopId}`)}>
+          <Button
+            colorScheme="blue"
+            onClick={() => navigate(`./transfers/add?isOutboundOf=${stop.id}&isInboundOf=${nextStopId}`)}
+          >
             Add transfer
           </Button>
         </Flex>
