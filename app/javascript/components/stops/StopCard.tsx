@@ -10,9 +10,10 @@ export type StopCardProps = {
   stay?: Stay;
   activities: Activity[];
   transfer?: Transfer;
+  onDelete: () => Promise<void>;
 };
 
-export default function StopCard({ stop, nextStopId, stay, activities, transfer }: StopCardProps) {
+export default function StopCard({ stop, nextStopId, stay, activities, transfer, onDelete }: StopCardProps) {
   const navigate = useNavigate();
 
   const deleteStop = async (id: number) => {
@@ -25,7 +26,7 @@ export default function StopCard({ stop, nextStopId, stay, activities, transfer 
           "Content-Type": "application/json",
         },
       });
-      navigate(0);
+      onDelete();
     } catch (error) {
       console.error(error);
     }
@@ -73,7 +74,7 @@ export default function StopCard({ stop, nextStopId, stay, activities, transfer 
         </CardBody>
       </Card>
       {transfer ? (
-        <TransferCard transfer={transfer} />
+        <TransferCard onDelete={onDelete} transfer={transfer} />
       ) : nextStopId ? (
         <Flex align="center" gap={4}>
           <QuestionMarkCircleIcon height={24} width={24} />

@@ -8,9 +8,10 @@ type TripDetailsProps = {
   stays: Stay[];
   activities: { [index: number]: Activity[] };
   transfers: Transfer[];
+  onDelete: () => Promise<void>;
 };
 
-export default function TripDetails({ stops, stays, activities, transfers }: TripDetailsProps) {
+export default function TripDetails({ stops, stays, activities, transfers, onDelete }: TripDetailsProps) {
   const navigate = useNavigate();
 
   return (
@@ -24,6 +25,7 @@ export default function TripDetails({ stops, stays, activities, transfers }: Tri
                 activities={activities[stop.id]}
                 key={stop.id}
                 nextStopId={stops[idx + 1] && stops[idx + 1].id}
+                onDelete={onDelete}
                 stay={stays?.find((s) => s.id === stop.stayId)}
                 stop={stop}
                 transfer={transfers?.find((t) => t.id === stop.outboundId)}
