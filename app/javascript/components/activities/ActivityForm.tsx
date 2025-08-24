@@ -1,4 +1,4 @@
-import { Button, HStack, Input, Select } from "@chakra-ui/react";
+import { Button, Heading, HStack, Input, Select } from "@chakra-ui/react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { isEmptyObject } from "~/javascript/helpers/helpers";
@@ -115,6 +115,9 @@ export default function ActivityForm({ trip }: ActivityFormProps) {
 
   return (
     <>
+      <Heading my={4} size="md">
+        Add activity
+      </Heading>
       <form onSubmit={handleSubmit}>
         <Select value={selectedActivity} onChange={(e) => setSelectedActivity(parseInt(e.target.value))}>
           {activities &&
@@ -135,7 +138,7 @@ export default function ActivityForm({ trip }: ActivityFormProps) {
         )}
         <HStack justify="space-between" mt={4} mb={4}>
           <Button colorScheme="blackAlpha" onClick={() => navigate(`/trips/${trip.id}`)}>
-            Back to Trip
+            Back to trip
           </Button>
           <Button colorScheme="blue" type="submit">
             Add activity

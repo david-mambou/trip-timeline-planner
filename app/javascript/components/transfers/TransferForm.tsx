@@ -1,4 +1,4 @@
-import { Button, HStack, Input, Select } from "@chakra-ui/react";
+import { Button, Heading, HStack, Input, Select } from "@chakra-ui/react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { isEmptyObject } from "~/javascript/helpers/helpers";
@@ -173,6 +173,9 @@ export default function TransferForm({ trip }: TransferFormProps) {
 
   return (
     <>
+      <Heading my={4} size="md">
+        {transferId ? "Edit transfer" : "Add transfer"}
+      </Heading>
       <form onSubmit={handleSubmit}>
         <label htmlFor="mode">Transportation mode</label>
         <Select name="mode" value={selectedMode} onChange={(e) => setSelectedMode(e.target.value as TransferMode)}>
@@ -200,10 +203,10 @@ export default function TransferForm({ trip }: TransferFormProps) {
         <Input defaultValue={transfer?.price} name="price"></Input>
         <HStack justify="space-between" mt={4} mb={4}>
           <Button colorScheme="blackAlpha" onClick={() => navigate(`/trips/${trip.id}`)}>
-            Back to Trip
+            Back to trip
           </Button>
           <Button colorScheme="blue" type="submit">
-            {transferId ? "Update transfer" : "Add transfer"}
+            {transferId ? "Edit transfer" : "Add transfer"}
           </Button>
         </HStack>
       </form>

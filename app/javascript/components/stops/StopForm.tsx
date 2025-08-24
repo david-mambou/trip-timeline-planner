@@ -1,4 +1,4 @@
-import { Button, HStack, Input, Select } from "@chakra-ui/react";
+import { Button, Heading, HStack, Input, Select } from "@chakra-ui/react";
 import { SyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { isEmptyObject } from "../../helpers/helpers";
@@ -74,6 +74,9 @@ export default function StopForm({ trip, stays }: StopFormProps) {
 
   return (
     <>
+      <Heading my={4} size="md">
+        Add stop
+      </Heading>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <Input name="name" placeholder="France" />
@@ -92,7 +95,7 @@ export default function StopForm({ trip, stays }: StopFormProps) {
         </Select>
         <HStack justify="space-between" mt={4} mb={4}>
           <Button colorScheme="blackAlpha" onClick={() => navigate("./../..")}>
-            Back to Trip
+            Back to trip
           </Button>
           <Button colorScheme="blue" type="submit">
             Add stop
