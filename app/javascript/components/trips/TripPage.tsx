@@ -148,7 +148,6 @@ export default function TripPage() {
     return (
       <>
         <TripIntroCard trip={trip} />
-
         <Routes>
           <Route
             index
