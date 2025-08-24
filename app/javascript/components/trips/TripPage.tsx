@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/react";
+import { Button, Spinner } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
 import ActivityForm from "../activities/ActivityForm";
@@ -137,7 +137,7 @@ export default function TripPage() {
   }, [stops]);
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return <Spinner />;
   }
 
   if (isError) {

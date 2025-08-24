@@ -1,4 +1,4 @@
-import { Button, Heading, HStack, Input, Select } from "@chakra-ui/react";
+import { Button, Heading, HStack, Input, Select, Spinner } from "@chakra-ui/react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { isEmptyObject } from "~/javascript/helpers/helpers";
@@ -164,7 +164,7 @@ export default function TransferForm({ trip }: TransferFormProps) {
   };
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return <Spinner />;
   }
 
   if (isError) {
