@@ -147,9 +147,6 @@ export default function TripPage() {
   if (trip) {
     return (
       <>
-        <Button colorScheme="blackAlpha" onClick={() => navigate("./..")}>
-          Back to Trips
-        </Button>
         <TripIntroCard trip={trip} />
 
         <Routes>
