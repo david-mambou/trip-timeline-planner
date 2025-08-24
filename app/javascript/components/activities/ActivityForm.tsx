@@ -1,4 +1,4 @@
-import { Button, Input, Select } from "@chakra-ui/react";
+import { Button, HStack, Input, Select } from "@chakra-ui/react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { isEmptyObject } from "~/javascript/helpers/helpers";
@@ -133,13 +133,15 @@ export default function ActivityForm({ trip }: ActivityFormProps) {
             <Input name="price"></Input>
           </>
         )}
-        <Button colorScheme="blue" type="submit">
-          Add activity
-        </Button>
+        <HStack justify="space-between" mt={4} mb={4}>
+          <Button colorScheme="blackAlpha" onClick={() => navigate(`/trips/${trip.id}`)}>
+            Back to Trip
+          </Button>
+          <Button colorScheme="blue" type="submit">
+            Add activity
+          </Button>
+        </HStack>
       </form>
-      <Button colorScheme="blackAlpha" onClick={() => navigate(`/trips/${trip.id}`)}>
-        Back to Trip
-      </Button>
     </>
   );
 }

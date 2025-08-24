@@ -1,4 +1,4 @@
-import { Button, Input } from "@chakra-ui/react";
+import { Button, HStack, Input } from "@chakra-ui/react";
 import { SyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { isEmptyObject } from "../../helpers/helpers";
@@ -85,15 +85,17 @@ export default function TripForm({ trip, inputMode }: TripFormProps) {
 
   return (
     <>
-      <Button colorScheme="blackAlpha" onClick={() => navigate("./..")}>
-        Back to Trip
-      </Button>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <Input defaultValue={trip?.name} name="name" placeholder="France" />
-        <Button colorScheme="blue" type="submit">
-          {inputMode === "create" ? "Add trip" : "Update trip"}
-        </Button>
+        <HStack justify="space-between" mt={4} mb={4}>
+          <Button colorScheme="blackAlpha" onClick={() => navigate("./..")}>
+            Back to Trips
+          </Button>
+          <Button colorScheme="blue" type="submit">
+            {inputMode === "create" ? "Add trip" : "Update trip"}
+          </Button>
+        </HStack>
       </form>
     </>
   );
