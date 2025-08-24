@@ -37,14 +37,14 @@ export default function Trips() {
 
   return (
     <>
-      <SimpleGrid columns={4} spacing={8}>
+      <SimpleGrid alignItems="center" columns={4} spacing={8}>
         {trips.map((trip, idx) => (
           <TripCard key={idx} trip={trip} />
         ))}
+        <Button colorScheme="blue" onClick={() => navigate("./new")}>
+          Add Trip
+        </Button>
       </SimpleGrid>
-      <Button colorScheme="blue" onClick={() => navigate("./new")}>
-        Add Trip
-      </Button>
     </>
   );
 }
