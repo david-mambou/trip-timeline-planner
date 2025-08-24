@@ -2,7 +2,6 @@ import { Button, Heading, HStack, Input } from "@chakra-ui/react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStatus, useCurrentUser } from "~/javascript/context/AuthContext";
-import { apiFetch } from "~/javascript/services/api";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
