@@ -133,9 +133,9 @@ export default function ActivityForm({ trip }: ActivityFormProps) {
         {selectedActivity === 0 && (
           <>
             <label htmlFor="name">Name</label>
-            <CustomInput backgroundColor="#fafafa" name="name" />
+            <CustomInput name="name" />
             <label htmlFor="price">Price</label>
-            <CustomInput backgroundColor="#fafafa" name="price" />
+            <CustomInput name="price" />
           </>
         )}
         <HStack justify="space-between" mt={4} mb={4}>

@@ -66,7 +66,6 @@ export default function CreateUserForm() {
           isRequired
         />
         <CustomInput
-          backgroundColor="#fafafa"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}

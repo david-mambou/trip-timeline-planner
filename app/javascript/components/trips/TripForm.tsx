@@ -91,13 +91,7 @@ export default function TripForm({ trip, inputMode }: TripFormProps) {
       </Heading>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
-        <CustomInput
-          backgroundColor="#fafafa"
-          color="white"
-          defaultValue={trip?.name}
-          name="name"
-          placeholder="France"
-        />
+        <CustomInput color="white" defaultValue={trip?.name} name="name" placeholder="France" />
         <HStack justify="space-between" mt={4} mb={4}>
           <Button colorScheme="blackAlpha" onClick={() => navigate("./..")}>
             {inputMode === "create" ? "Back to trips" : "Back to trip"}
