@@ -12,15 +12,15 @@ const root = createRoot(container as HTMLElement);
 document.addEventListener("DOMContentLoaded", () => {
   root.render(
     <StrictMode>
-      <AuthProvider>
-        <BrowserRouter>
+      <BrowserRouter>
+        <AuthProvider>
           <ChakraProvider>
             <Layout>
               <App />
             </Layout>
           </ChakraProvider>
-        </BrowserRouter>
-      </AuthProvider>
+        </AuthProvider>
+      </BrowserRouter>
     </StrictMode>,
   );
 });
