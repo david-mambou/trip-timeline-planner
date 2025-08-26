@@ -1,4 +1,4 @@
-import { Button, Heading, HStack, Select, Spinner } from "@chakra-ui/react";
+import { Button, Heading, HStack, Spinner } from "@chakra-ui/react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { isEmptyObject } from "~/javascript/helpers/helpers";
@@ -8,6 +8,7 @@ import snakecaseKeys from "snakecase-keys";
 import camelcaseKeys from "camelcase-keys";
 import { format } from "date-fns";
 import CustomInput from "../ui/CustomInput";
+import CustomSelect from "../ui/CustomSelect";
 
 type TransferFormProps = {
   trip: Trip;
@@ -179,13 +180,17 @@ export default function TransferForm({ trip }: TransferFormProps) {
       </Heading>
       <form onSubmit={handleSubmit}>
         <label htmlFor="mode">Transportation mode</label>
-        <Select name="mode" value={selectedMode} onChange={(e) => setSelectedMode(e.target.value as TransferMode)}>
+        <CustomSelect
+          name="mode"
+          value={selectedMode}
+          onChange={(e) => setSelectedMode(e.target.value as TransferMode)}
+        >
           {modes.map((mode, i) => (
             <option key={i} value={mode.value}>
               {mode.label}
             </option>
           ))}
-        </Select>
+        </CustomSelect>
         <label htmlFor="pickupPoint">Pickup point</label>
         <CustomInput defaultValue={transfer?.pickupPoint} name="pickupPoint" />
         <label htmlFor="departureTime">Departure time</label>

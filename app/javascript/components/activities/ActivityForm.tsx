@@ -1,10 +1,11 @@
-import { Button, Heading, HStack, Select } from "@chakra-ui/react";
+import { Button, Heading, HStack } from "@chakra-ui/react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { isEmptyObject } from "~/javascript/helpers/helpers";
 import { Activity } from "../trips/TripPage";
 import { Trip } from "../trips/Trips";
 import CustomInput from "../ui/CustomInput";
+import CustomSelect from "../ui/CustomSelect";
 
 type ActivityFormProps = {
   trip: Trip;
@@ -120,7 +121,7 @@ export default function ActivityForm({ trip }: ActivityFormProps) {
         Add activity
       </Heading>
       <form onSubmit={handleSubmit}>
-        <Select value={selectedActivity} onChange={(e) => setSelectedActivity(parseInt(e.target.value))}>
+        <CustomSelect value={selectedActivity} onChange={(e) => setSelectedActivity(parseInt(e.target.value))}>
           {activities &&
             activities.map((activity, i) => (
               <option key={i} value={activity.id}>
@@ -128,7 +129,7 @@ export default function ActivityForm({ trip }: ActivityFormProps) {
               </option>
             ))}
           <option value={0}>New activity...</option>
-        </Select>
+        </CustomSelect>
         {selectedActivity === 0 && (
           <>
             <label htmlFor="name">Name</label>
