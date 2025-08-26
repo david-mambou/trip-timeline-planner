@@ -1,4 +1,4 @@
-import { Button, Input, Select } from "@chakra-ui/react";
+import { Button, Heading, HStack, Spinner } from "@chakra-ui/react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { isEmptyObject } from "~/javascript/helpers/helpers";
@@ -7,6 +7,8 @@ import { Trip } from "../trips/Trips";
 import snakecaseKeys from "snakecase-keys";
 import camelcaseKeys from "camelcase-keys";
 import { format } from "date-fns";
+import CustomInput from "../ui/CustomInput";
+import CustomSelect from "../ui/CustomSelect";
 
 type TransferFormProps = {
   trip: Trip;
@@ -164,7 +166,7 @@ export default function TransferForm({ trip }: TransferFormProps) {
   };
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return <Spinner />;
   }
 
   if (isError) {
@@ -173,34 +175,47 @@ export default function TransferForm({ trip }: TransferFormProps) {
 
   return (
     <>
+      <Heading my={4} size="md">
+        {transferId ? "Edit transfer" : "Add transfer"}
+      </Heading>
       <form onSubmit={handleSubmit}>
         <label htmlFor="mode">Transportation mode</label>
-        <Select name="mode" value={selectedMode} onChange={(e) => setSelectedMode(e.target.value as TransferMode)}>
+        <CustomSelect
+          name="mode"
+          value={selectedMode}
+          onChange={(e) => setSelectedMode(e.target.value as TransferMode)}
+        >
           {modes.map((mode, i) => (
             <option key={i} value={mode.value}>
               {mode.label}
             </option>
           ))}
-        </Select>
+        </CustomSelect>
         <label htmlFor="pickupPoint">Pickup point</label>
-        <Input defaultValue={transfer?.pickupPoint} name="pickupPoint"></Input>
+        <CustomInput defaultValue={transfer?.pickupPoint} name="pickupPoint" />
         <label htmlFor="departureTime">Departure time</label>
-        <Input
+        <CustomInput
           defaultValue={transfer && format(transfer?.departureTime, "yyyy-MM-dd'T'HH:mm")}
           name="departureTime"
           type="datetime-local"
         />
         <label htmlFor="arrivalTime">Arrival time</label>
-        <Input
+        <CustomInput
           defaultValue={transfer && format(transfer?.arrivalTime, "yyyy-MM-dd'T'HH:mm")}
           name="arrivalTime"
           type="datetime-local"
         />
         <label htmlFor="price">Price</label>
-        <Input defaultValue={transfer?.price} name="price"></Input>
-        <Button type="submit">{transferId ? "Update transfer" : "Add transfer"}</Button>
+        <CustomInput defaultValue={transfer?.price} name="price" />
+        <HStack justify="space-between" mt={4} mb={4}>
+          <Button colorScheme="blackAlpha" onClick={() => navigate(`/trips/${trip.id}`)}>
+            Back to trip
+          </Button>
+          <Button colorScheme="blue" type="submit">
+            {transferId ? "Edit transfer" : "Add transfer"}
+          </Button>
+        </HStack>
       </form>
-      <Button onClick={() => navigate(`/trips/${trip.id}`)}>Back to Trip</Button>
     </>
   );
 }

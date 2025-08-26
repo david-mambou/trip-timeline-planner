@@ -1,4 +1,16 @@
-import { Box, Button, Card, CardBody, Flex, Heading, Image, Tag, TagCloseButton, TagLabel } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Card,
+  CardBody,
+  Flex,
+  Heading,
+  HStack,
+  Tag,
+  TagCloseButton,
+  TagLabel,
+  Text,
+} from "@chakra-ui/react";
 import type { Activity, Stay, Stop, Transfer } from "../trips/TripPage";
 import { useNavigate } from "react-router-dom";
 import TransferCard from "../trips/TransferCard";
@@ -53,22 +65,27 @@ export default function StopCard({ stop, nextStopId, stay, activities, transfer,
       <Card bg="white" w="70%">
         <CardBody>
           <Flex>
-            <Image borderRadius={5} w="15%" src={`https://loremflickr.com/320/240/${stop.name}`} alt={stop.name} />
             <Box p="4" w="100%" textAlign="right">
-              <Heading mt={5} size="md">
-                {stop.name}
-              </Heading>
-              <div>{`${stop.startDay} to ${stop.endDay}`}</div>
-              <div>Staying at {stay?.name}</div>
-              <div>Activities:</div>
-              {activities?.map((activity) => (
-                <Tag key={activity.id}>
-                  <TagLabel>{activity.name}</TagLabel>
-                  <TagCloseButton onClick={() => removeActivity(stop.id, activity.id)} />
-                </Tag>
-              ))}
-              <Button onClick={() => navigate(`./stops/${stop.id}/activities/add`)}>Add activity</Button>
-              <Button onClick={() => deleteStop(stop.id)}>Delete stop</Button>
+              <Heading size="md">{stop.name}</Heading>
+              <Text>{`${stop.startDay} to ${stop.endDay}`}</Text>
+              <Text>Staying at {stay?.name}</Text>
+              <Box mt={2}>
+                <Heading size="sm">Activities</Heading>
+                {activities?.map((activity) => (
+                  <Tag key={activity.id} ml={1}>
+                    <TagLabel>{activity.name}</TagLabel>
+                    <TagCloseButton onClick={() => removeActivity(stop.id, activity.id)} />
+                  </Tag>
+                ))}
+              </Box>
+              <HStack justify={"right"} mt={4}>
+                <Button colorScheme="blue" onClick={() => navigate(`./stops/${stop.id}/activities/add`)}>
+                  Add activity
+                </Button>
+                <Button colorScheme="red" ml={2} onClick={() => deleteStop(stop.id)}>
+                  Delete stop
+                </Button>
+              </HStack>
             </Box>
           </Flex>
         </CardBody>
@@ -79,7 +96,10 @@ export default function StopCard({ stop, nextStopId, stay, activities, transfer,
         <Flex align="center" gap={4}>
           <QuestionMarkCircleIcon height={24} width={24} />
           How will you get to your next stop?
-          <Button onClick={() => navigate(`./transfers/add?isOutboundOf=${stop.id}&isInboundOf=${nextStopId}`)}>
+          <Button
+            colorScheme="blue"
+            onClick={() => navigate(`./transfers/add?isOutboundOf=${stop.id}&isInboundOf=${nextStopId}`)}
+          >
             Add transfer
           </Button>
         </Flex>

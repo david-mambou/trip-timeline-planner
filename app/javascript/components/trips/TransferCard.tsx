@@ -54,7 +54,9 @@ export default function TransferCard({ transfer, onDelete }: TransferCardProps) 
         <Button onClick={() => navigate(`./transfers/${transfer.id}/edit`)}>
           <PencilAltIcon />
         </Button>
-        <Button onClick={() => deleteTransfer(transfer.id)}>Delete transfer</Button>
+        <Button colorScheme="red" onClick={() => deleteTransfer(transfer.id)}>
+          Delete transfer
+        </Button>
       </Box>
     </Flex>
   );

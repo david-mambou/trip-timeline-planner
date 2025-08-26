@@ -1,10 +1,12 @@
-import { Button, Input, Select } from "@chakra-ui/react";
+import { Button, Heading, HStack } from "@chakra-ui/react";
 import { SyntheticEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { isEmptyObject } from "../../helpers/helpers";
 import type { Trip } from "../trips/Trips";
 import type { Stay, Stop } from "../trips/TripPage";
 import snakecaseKeys from "snakecase-keys";
+import CustomInput from "../ui/CustomInput";
+import CustomSelect from "../ui/CustomSelect";
 
 type StopFormProps = {
   trip: Trip;
@@ -74,24 +76,33 @@ export default function StopForm({ trip, stays }: StopFormProps) {
 
   return (
     <>
-      <Button onClick={() => navigate("./../..")}>Back to Trip</Button>
+      <Heading my={4} size="md">
+        Add stop
+      </Heading>
       <form onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
-        <Input name="name" placeholder="France" />
+        <CustomInput name="name" placeholder="France" />
         <label htmlFor="startDay">Start</label>
-        <Input name="startDay" type="date" />
+        <CustomInput name="startDay" type="date" />
         <label htmlFor="endDay">End</label>
-        <Input name="endDay" type="date" />
+        <CustomInput name="endDay" type="date" />
         <label htmlFor="stay">Stay</label>
-        <Select name="stayId">
+        <CustomSelect name="stayId">
           {stays.map((stay, i) => (
             <option key={i} value={stay.id}>
               {stay.name}
             </option>
           ))}
           <option value={0}>Other...</option>
-        </Select>
-        <Button type="submit">Add stop</Button>
+        </CustomSelect>
+        <HStack justify="space-between" mt={4} mb={4}>
+          <Button colorScheme="blackAlpha" onClick={() => navigate("./../..")}>
+            Back to trip
+          </Button>
+          <Button colorScheme="blue" type="submit">
+            Add stop
+          </Button>
+        </HStack>
       </form>
     </>
   );

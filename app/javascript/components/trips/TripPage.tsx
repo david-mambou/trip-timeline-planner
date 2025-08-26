@@ -1,6 +1,6 @@
-import { Button } from "@chakra-ui/react";
+import { Spinner } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { Route, Routes, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Route, Routes, useLocation, useParams } from "react-router-dom";
 import ActivityForm from "../activities/ActivityForm";
 import StopForm from "../stops/StopForm";
 import TripDetails from "./TripDetails";
@@ -45,7 +45,6 @@ export type Transfer = {
 };
 
 export default function TripPage() {
-  const navigate = useNavigate();
   const location = useLocation();
   const [trip, setTrip] = useState<Trip>();
   const [stops, setStops] = useState<Stop[]>([]);
@@ -137,7 +136,7 @@ export default function TripPage() {
   }, [stops]);
 
   if (isLoading) {
-    return <div>Loading</div>;
+    return <Spinner />;
   }
 
   if (isError) {
@@ -147,9 +146,7 @@ export default function TripPage() {
   if (trip) {
     return (
       <>
-        <Button onClick={() => navigate("./..")}>Back to Trips</Button>
         <TripIntroCard trip={trip} />
-
         <Routes>
           <Route
             index

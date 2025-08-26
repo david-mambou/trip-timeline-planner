@@ -1,7 +1,8 @@
-import { Button, Input, Text } from "@chakra-ui/react";
+import { Button, Heading, HStack, Text } from "@chakra-ui/react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStatus } from "~/javascript/context/AuthContext";
+import CustomInput from "../ui/CustomInput";
 
 export default function CreateUserForm() {
   const [email, setEmail] = useState("");
@@ -55,19 +56,33 @@ export default function CreateUserForm() {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <h2>Register</h2>
+        <Heading mb={4}>Register</Heading>
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
-        <Input
+        <CustomInput
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          isRequired
+        />
+        <CustomInput
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
-          required
+          isRequired
         />
-        <Button type="submit">Register</Button>
-        <Text>Already have an account?</Text>
-        <Button onClick={() => navigate("/login")}>Login</Button>
+        <HStack justify="space-between" mt={4} mb={4}>
+          <Button colorScheme="blue" type="submit">
+            Register
+          </Button>
+          <HStack>
+            <Text>Already have an account?</Text>
+            <Button colorScheme="blue" onClick={() => navigate("/login")}>
+              Login
+            </Button>
+          </HStack>
+        </HStack>
       </form>
       {/* <Link href="/users/auth/google_oauth2">
         <Button>Sign up with Google</Button>

@@ -1,9 +1,11 @@
-import { Button, Input, Select } from "@chakra-ui/react";
+import { Button, Heading, HStack } from "@chakra-ui/react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { isEmptyObject } from "~/javascript/helpers/helpers";
 import { Activity } from "../trips/TripPage";
 import { Trip } from "../trips/Trips";
+import CustomInput from "../ui/CustomInput";
+import CustomSelect from "../ui/CustomSelect";
 
 type ActivityFormProps = {
   trip: Trip;
@@ -115,27 +117,36 @@ export default function ActivityForm({ trip }: ActivityFormProps) {
 
   return (
     <>
+      <Heading my={4} size="md">
+        Add activity
+      </Heading>
       <form onSubmit={handleSubmit}>
-        <Select value={selectedActivity} onChange={(e) => setSelectedActivity(parseInt(e.target.value))}>
+        <CustomSelect value={selectedActivity} onChange={(e) => setSelectedActivity(parseInt(e.target.value))}>
           {activities &&
             activities.map((activity, i) => (
               <option key={i} value={activity.id}>
                 {activity.name}
               </option>
             ))}
-          <option value={0}>Add activity...</option>
-        </Select>
+          <option value={0}>New activity...</option>
+        </CustomSelect>
         {selectedActivity === 0 && (
           <>
             <label htmlFor="name">Name</label>
-            <Input name="name"></Input>
+            <CustomInput name="name" />
             <label htmlFor="price">Price</label>
-            <Input name="price"></Input>
+            <CustomInput name="price" />
           </>
         )}
-        <Button type="submit">Add activity</Button>
+        <HStack justify="space-between" mt={4} mb={4}>
+          <Button colorScheme="blackAlpha" onClick={() => navigate(`/trips/${trip.id}`)}>
+            Back to trip
+          </Button>
+          <Button colorScheme="blue" type="submit">
+            Add activity
+          </Button>
+        </HStack>
       </form>
-      <Button onClick={() => navigate(`/trips/${trip.id}`)}>Back to Trip</Button>
     </>
   );
 }
