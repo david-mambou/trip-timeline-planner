@@ -1,7 +1,8 @@
-import { Button, Heading, HStack, Input, Text } from "@chakra-ui/react";
+import { Button, Heading, HStack, Text } from "@chakra-ui/react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStatus } from "~/javascript/context/AuthContext";
+import CustomInput from "../ui/CustomInput";
 
 export default function CreateUserForm() {
   const [email, setEmail] = useState("");
@@ -57,13 +58,20 @@ export default function CreateUserForm() {
       <form onSubmit={handleSubmit}>
         <Heading mb={4}>Register</Heading>
         {error && <p style={{ color: "red" }}>{error}</p>}
-        <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" required />
-        <Input
+        <CustomInput
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          isRequired
+        />
+        <CustomInput
+          backgroundColor="#fafafa"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
-          required
+          isRequired
         />
         <HStack justify="space-between" mt={4} mb={4}>
           <Button colorScheme="blue" type="submit">

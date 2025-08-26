@@ -1,9 +1,10 @@
-import { Button, Heading, HStack, Input, Select } from "@chakra-ui/react";
+import { Button, Heading, HStack, Select } from "@chakra-ui/react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { isEmptyObject } from "~/javascript/helpers/helpers";
 import { Activity } from "../trips/TripPage";
 import { Trip } from "../trips/Trips";
+import CustomInput from "../ui/CustomInput";
 
 type ActivityFormProps = {
   trip: Trip;
@@ -131,9 +132,9 @@ export default function ActivityForm({ trip }: ActivityFormProps) {
         {selectedActivity === 0 && (
           <>
             <label htmlFor="name">Name</label>
-            <Input name="name"></Input>
+            <CustomInput backgroundColor="#fafafa" name="name" />
             <label htmlFor="price">Price</label>
-            <Input name="price"></Input>
+            <CustomInput backgroundColor="#fafafa" name="price" />
           </>
         )}
         <HStack justify="space-between" mt={4} mb={4}>
