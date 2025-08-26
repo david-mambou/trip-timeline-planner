@@ -9,7 +9,6 @@ import { Trip } from "./Trips";
 import camelcaseKeys from "camelcase-keys";
 import TripForm from "./TripForm";
 import TransferForm from "../transfers/TransferForm";
-import PrivateRoute from "../routes/PrivateRoute";
 
 export type Stop = {
   id: number;
