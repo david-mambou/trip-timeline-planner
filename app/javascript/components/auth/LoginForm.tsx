@@ -16,7 +16,7 @@ export default function LoginForm() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/");
+      navigate("/trips");
     }
   }, [isLoggedIn, navigate]);
 
@@ -55,7 +55,7 @@ export default function LoginForm() {
         setUser(data.user);
       }
 
-      navigate("/");
+      navigate("/trips");
     } catch (error) {
       console.error(error);
     }
