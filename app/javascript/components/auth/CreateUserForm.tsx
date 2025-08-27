@@ -15,7 +15,7 @@ export default function CreateUserForm() {
   // Redirect if already logged in
   useEffect(() => {
     if (isLoggedIn) {
-      navigate("/");
+      navigate("/trips");
     }
   }, [isLoggedIn, navigate]);
 
@@ -47,7 +47,7 @@ export default function CreateUserForm() {
       } else {
         throw new Error("No token received");
       }
-      navigate("/");
+      navigate("/trips");
     } catch (error) {
       console.error(error);
     }
