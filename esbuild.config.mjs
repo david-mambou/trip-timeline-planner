@@ -21,7 +21,7 @@ build({
   absWorkingDir: path.join(__dirname, "app/javascript"),
   color: true,
   minify: optimize,
-  sourcemap: true,
+  sourcemap: !optimize,
   watch: process.argv.includes("--watch"),
   loader: { ".js": "jsx", ".tsx": "tsx" },
   plugins: [importGlob(), sassPlugin({ cache: true })],
