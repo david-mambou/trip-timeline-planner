@@ -79,10 +79,14 @@ export default function StopCard({ stop, nextStopId, stay, activities, transfer,
                 ))}
               </Box>
               <HStack justify={"right"} mt={4}>
-                <Button colorScheme="blue" onClick={() => navigate(`./stops/${stop.id}/activities/add`)}>
+                <Button
+                  colorScheme="blue"
+                  whiteSpace="normal"
+                  onClick={() => navigate(`./stops/${stop.id}/activities/add`)}
+                >
                   Add activity
                 </Button>
-                <Button colorScheme="red" ml={2} onClick={() => deleteStop(stop.id)}>
+                <Button colorScheme="red" ml={2} whiteSpace="normal" onClick={() => deleteStop(stop.id)}>
                   Delete stop
                 </Button>
               </HStack>
