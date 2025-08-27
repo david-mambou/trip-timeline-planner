@@ -39,13 +39,13 @@ export default function TransferCard({ transfer, onDelete }: TransferCardProps) 
   };
 
   return (
-    <Flex align="center" h="140px" my="12px" width="70%">
+    <Flex align="center" my="12px" width="70%">
       <Box flex={1}>
         <Text align="center" fontSize="44">
           {modeEmojis[transfer.mode]}
         </Text>
       </Box>
-      <Divider bg="gray.500" borderRadius="full" orientation="vertical" height="100%" width="4px" mx={4} />
+      <Box alignSelf="stretch" w="4px" bg="gray.500" borderRadius="full" mx={4} aria-hidden />
       <Box flex={1}>
         <Text>{format(transfer.departureTime, "HH:mm")}</Text>
         <Text>from {transfer.pickupPoint}</Text>
