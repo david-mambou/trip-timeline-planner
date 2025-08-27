@@ -2,6 +2,7 @@ import { Button, VStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import StopCard from "../stops/StopCard";
 import { Activity, Stay, Stop, Transfer } from "./TripPage";
+import { PlusCircleIcon } from "@heroicons/react/outline";
 
 type TripDetailsProps = {
   stops: Stop[];
@@ -31,7 +32,11 @@ export default function TripDetails({ stops, stays, activities, transfers, onDel
               />
             ),
         )}
-        <Button colorScheme="blue" onClick={() => navigate("./stops/new")}>
+        <Button
+          colorScheme="blue"
+          leftIcon={<PlusCircleIcon height={18} width={18} />}
+          onClick={() => navigate("./stops/new")}
+        >
           Add stop
         </Button>
       </VStack>

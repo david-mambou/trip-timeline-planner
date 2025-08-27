@@ -14,7 +14,7 @@ import {
 import type { Activity, Stay, Stop, Transfer } from "../trips/TripPage";
 import { useNavigate } from "react-router-dom";
 import TransferCard from "../trips/TransferCard";
-import { QuestionMarkCircleIcon } from "@heroicons/react/outline";
+import { PlusCircleIcon, QuestionMarkCircleIcon, TrashIcon } from "@heroicons/react/outline";
 
 export type StopCardProps = {
   stop: Stop;
@@ -81,12 +81,19 @@ export default function StopCard({ stop, nextStopId, stay, activities, transfer,
               <HStack justify={"right"} mt={4}>
                 <Button
                   colorScheme="blue"
+                  leftIcon={<PlusCircleIcon height={18} width={18} />}
                   whiteSpace="normal"
                   onClick={() => navigate(`./stops/${stop.id}/activities/add`)}
                 >
                   Add activity
                 </Button>
-                <Button colorScheme="red" ml={2} whiteSpace="normal" onClick={() => deleteStop(stop.id)}>
+                <Button
+                  colorScheme="red"
+                  ml={2}
+                  leftIcon={<TrashIcon height={18} width={18} />}
+                  whiteSpace="normal"
+                  onClick={() => deleteStop(stop.id)}
+                >
                   Delete stop
                 </Button>
               </HStack>
