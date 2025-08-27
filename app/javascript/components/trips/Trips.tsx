@@ -37,7 +37,7 @@ export default function Trips() {
 
   return (
     <>
-      <SimpleGrid alignItems="center" columns={4} spacing={8}>
+      <SimpleGrid alignItems="center" columns={{ base: 1, md: 2, lg: 4 }} spacing={8}>
         {trips.map((trip, idx) => (
           <TripCard key={idx} trip={trip} />
         ))}
