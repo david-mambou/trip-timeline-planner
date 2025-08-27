@@ -1,7 +1,7 @@
 import { Box, Button, Divider, Flex, Text } from "@chakra-ui/react";
 import { Transfer } from "./TripPage";
 import { format } from "date-fns";
-import { PencilAltIcon } from "@heroicons/react/outline";
+import { PencilAltIcon, TrashIcon } from "@heroicons/react/outline";
 import { useNavigate } from "react-router-dom";
 
 export type TransferCardProps = {
@@ -39,7 +39,7 @@ export default function TransferCard({ transfer, onDelete }: TransferCardProps) 
   };
 
   return (
-    <Flex align="center" h="100px" my="12px" width="70%">
+    <Flex align="center" h="140px" my="12px" width="70%">
       <Box flex={1}>
         <Text align="center" fontSize="44">
           {modeEmojis[transfer.mode]}
@@ -51,11 +51,11 @@ export default function TransferCard({ transfer, onDelete }: TransferCardProps) 
         <Text>from {transfer.pickupPoint}</Text>
         <Text>Arrival: {format(transfer.arrivalTime, "HH:mm")}</Text>
         <Text>Price: {transfer.price}</Text>
-        <Button onClick={() => navigate(`./transfers/${transfer.id}/edit`)}>
-          <PencilAltIcon />
+        <Button colorScheme="blackAlpha" mr={2} onClick={() => navigate(`./transfers/${transfer.id}/edit`)}>
+          <PencilAltIcon height={18} width={18} />
         </Button>
         <Button colorScheme="red" onClick={() => deleteTransfer(transfer.id)}>
-          Delete transfer
+          <TrashIcon height={18} width={18} />
         </Button>
       </Box>
     </Flex>
