@@ -51,7 +51,7 @@ export default function TransferCard({ transfer, onDelete }: TransferCardProps) 
         <Text>from {transfer.pickupPoint}</Text>
         <Text>Arrival: {format(transfer.arrivalTime, "HH:mm")}</Text>
         <Text>Price: {transfer.price}</Text>
-        <Button colorScheme="blackAlpha" mr={3} onClick={() => navigate(`./transfers/${transfer.id}/edit`)}>
+        <Button colorScheme="blackAlpha" mb={1} mr={3} onClick={() => navigate(`./transfers/${transfer.id}/edit`)}>
           <PencilAltIcon height={18} width={18} />
         </Button>
         <Button colorScheme="red" onClick={() => deleteTransfer(transfer.id)}>
