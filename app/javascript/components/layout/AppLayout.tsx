@@ -51,7 +51,7 @@ export default function SidebarWithHeader({ children }: { children: ReactNode })
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
-      <MobileNavButton onOpen={onOpen} />
+      <SidebarButton onOpen={onOpen} />
       <Box p="4">{children}</Box>
     </Box>
   );
@@ -90,7 +90,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       bg={useColorModeValue("white", "gray.900")}
       borderRight="1px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
-      w={{ base: "full", md: "full" }}
+      w="full"
       pos="fixed"
       h="full"
       flexDirection="column"
@@ -105,9 +105,9 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
         </Flex>
         {LinkItems.map((link) => (
-          <NavItem key={link.name} {...link}>
+          <SidebarItem key={link.name} {...link}>
             {link.name}
-          </NavItem>
+          </SidebarItem>
         ))}
       </Box>
       <Box mb={4} mx={4} px={4}>
@@ -159,12 +159,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   );
 };
 
-interface NavItemProps extends FlexProps {
+interface SidebarItemProps extends FlexProps {
   icon: IconType;
   children: string;
   href?: string;
 }
-const NavItem = ({ href = "#", icon, children, ...rest }: NavItemProps) => {
+const SidebarItem = ({ href = "#", icon, children, ...rest }: SidebarItemProps) => {
   return (
     <Link href={href} style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
       <Flex
@@ -199,7 +199,7 @@ const NavItem = ({ href = "#", icon, children, ...rest }: NavItemProps) => {
 interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
-const MobileNavButton = ({ onOpen, ...rest }: MobileProps) => {
+const SidebarButton = ({ onOpen, ...rest }: MobileProps) => {
   return (
     <Box display="flex" position="fixed" bottom={4} left={4} zIndex={1000} {...rest}>
       <IconButton
