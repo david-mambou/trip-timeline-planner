@@ -212,7 +212,7 @@ interface MobileProps extends FlexProps {
 }
 const SidebarButton = ({ onOpen, ...rest }: MobileProps) => {
   return (
-    <Box display="flex" position="fixed" bottom={4} left={4} zIndex={1000} {...rest}>
+    <Box position="fixed" bottom={4} left={4} zIndex={1000} {...rest}>
       <IconButton
         backgroundColor="white"
         aria-label="open menu"
