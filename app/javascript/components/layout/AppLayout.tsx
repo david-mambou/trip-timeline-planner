@@ -56,7 +56,6 @@ export default function SidebarWithHeader({ children }: { children: ReactNode })
           <SidebarContent display="flex" onClose={onClose} />
         </DrawerContent>
       </Drawer>
-      {/* mobilenav */}
       <SidebarButton onOpen={onOpen} />
       <Box p="4">{children}</Box>
     </Box>
