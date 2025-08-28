@@ -124,13 +124,33 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           </MenuButton>
           <MenuList bg={useColorModeValue("white", "gray.900")} borderColor={useColorModeValue("gray.200", "gray.700")}>
             {isLoggedIn ? (
-              <MenuItem as={Button} onClick={() => handleLogout()}>
+              <MenuItem
+                as={Button}
+                onClick={() => {
+                  onClose();
+                  handleLogout();
+                }}
+              >
                 Logout
               </MenuItem>
             ) : (
               <>
-                <MenuItem onClick={() => navigate("/login")}>Login</MenuItem>
-                <MenuItem onClick={() => navigate("/register")}>Register</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    onClose();
+                    navigate("/login");
+                  }}
+                >
+                  Login
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    onClose();
+                    navigate("/register");
+                  }}
+                >
+                  Register
+                </MenuItem>
               </>
             )}
           </MenuList>
