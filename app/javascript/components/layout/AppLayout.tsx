@@ -20,7 +20,7 @@ import {
   MenuList,
   Button,
 } from "@chakra-ui/react";
-import { ChevronDownIcon, GlobeAltIcon, MenuIcon, UserCircleIcon } from "@heroicons/react/outline";
+import { ChevronDownIcon, DotsVerticalIcon, GlobeAltIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { IconType } from "react-icons";
 import { useNavigate } from "react-router-dom";
 import { useAuthStatus } from "~/javascript/context/AuthContext";
@@ -37,7 +37,7 @@ export default function SidebarWithHeader({ children }: { children: ReactNode })
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
-      <SidebarContent onClose={() => onClose} display={{ base: "none", md: "flex" }} />
+      {/* <SidebarContent onClose={() => onClose} display={{ base: "none", md: "flex" }} /> */}
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
@@ -45,17 +45,15 @@ export default function SidebarWithHeader({ children }: { children: ReactNode })
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        size="full"
+        size="xs"
       >
         <DrawerContent>
           <SidebarContent display="flex" onClose={onClose} />
         </DrawerContent>
       </Drawer>
       {/* mobilenav */}
-      <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
-        {children}
-      </Box>
+      <MobileNavButton onOpen={onOpen} />
+      <Box p="4">{children}</Box>
     </Box>
   );
 }
@@ -93,7 +91,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       bg={useColorModeValue("white", "gray.900")}
       borderRight="1px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
-      w={{ base: "full", md: 60 }}
+      w={{ base: "full", md: "full" }}
       pos="fixed"
       h="full"
       flexDirection="column"
@@ -182,10 +180,16 @@ const NavItem = ({ href = "#", icon, children, ...rest }: NavItemProps) => {
 interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
-const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+const MobileNavButton = ({ onOpen, ...rest }: MobileProps) => {
   return (
-    <Box display={{ base: "flex", md: "none" }} position="fixed" top={4} left={4} zIndex={1000} {...rest}>
-      <IconButton variant="outline" aria-label="open menu" icon={<MenuIcon />} onClick={onOpen} />
+    <Box display="flex" position="fixed" bottom={4} left={4} zIndex={1000} {...rest}>
+      <IconButton
+        backgroundColor="white"
+        aria-label="open menu"
+        isRound
+        icon={<DotsVerticalIcon height={25} width={25} />}
+        onClick={onOpen}
+      />
     </Box>
   );
 };
