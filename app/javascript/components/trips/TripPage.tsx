@@ -1,4 +1,3 @@
-import { Spinner } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Route, Routes, useLocation, useParams } from "react-router-dom";
 import ActivityForm from "../activities/ActivityForm";
@@ -9,6 +8,7 @@ import { Trip } from "./Trips";
 import camelcaseKeys from "camelcase-keys";
 import TripForm from "./TripForm";
 import TransferForm from "../transfers/TransferForm";
+import LoadingPage from "../routes/LoadingPage";
 
 export type Stop = {
   id: number;
@@ -136,7 +136,7 @@ export default function TripPage() {
   }, [stops]);
 
   if (isLoading) {
-    return <Spinner />;
+    return <LoadingPage />;
   }
 
   if (isError) {

@@ -1,4 +1,4 @@
-import { Button, Heading, HStack, Spinner } from "@chakra-ui/react";
+import { Button, Heading, HStack } from "@chakra-ui/react";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { isEmptyObject } from "~/javascript/helpers/helpers";
@@ -9,6 +9,7 @@ import camelcaseKeys from "camelcase-keys";
 import { format } from "date-fns";
 import CustomInput from "../ui/CustomInput";
 import CustomSelect from "../ui/CustomSelect";
+import LoadingPage from "../routes/LoadingPage";
 
 type TransferFormProps = {
   trip: Trip;
@@ -166,7 +167,7 @@ export default function TransferForm({ trip }: TransferFormProps) {
   };
 
   if (isLoading) {
-    return <Spinner />;
+    return <LoadingPage />;
   }
 
   if (isError) {
