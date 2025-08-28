@@ -20,7 +20,14 @@ import {
   MenuList,
   Button,
 } from "@chakra-ui/react";
-import { ChevronDownIcon, GlobeAltIcon, MenuIcon, UserCircleIcon } from "@heroicons/react/outline";
+import {
+  ChevronDownIcon,
+  DotsVerticalIcon,
+  GlobeAltIcon,
+  LoginIcon,
+  UserAddIcon,
+  UserCircleIcon,
+} from "@heroicons/react/outline";
 import { IconType } from "react-icons";
 import { useNavigate } from "react-router-dom";
 import { useAuthStatus } from "~/javascript/context/AuthContext";
@@ -31,13 +38,11 @@ interface LinkItemProps {
   icon: IconType;
   href?: string;
 }
-const LinkItems: Array<LinkItemProps> = [{ name: "Trips", icon: GlobeAltIcon, href: "/trips" }];
 
 export default function SidebarWithHeader({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" bg={useColorModeValue("gray.100", "gray.900")}>
-      <SidebarContent onClose={() => onClose} display={{ base: "none", md: "flex" }} />
       <Drawer
         autoFocus={false}
         isOpen={isOpen}
@@ -45,17 +50,14 @@ export default function SidebarWithHeader({ children }: { children: ReactNode })
         onClose={onClose}
         returnFocusOnClose={false}
         onOverlayClick={onClose}
-        size="full"
+        size="xs"
       >
         <DrawerContent>
           <SidebarContent display="flex" onClose={onClose} />
         </DrawerContent>
       </Drawer>
-      {/* mobilenav */}
-      <MobileNav onOpen={onOpen} />
-      <Box ml={{ base: 0, md: 60 }} p="4">
-        {children}
-      </Box>
+      <SidebarButton onOpen={onOpen} />
+      <Box p="4">{children}</Box>
     </Box>
   );
 }
@@ -68,6 +70,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const navigate = useNavigate();
   const isLoggedIn = useAuthStatus();
   const { user, setUser } = useCurrentUser();
+  const LinkItems: Array<LinkItemProps> = isLoggedIn
+    ? [{ name: "Trips", icon: GlobeAltIcon, href: "/trips" }]
+    : [
+        { name: "Login", icon: LoginIcon, href: "/login" },
+        { name: "Register", icon: UserAddIcon, href: "/register" },
+      ];
 
   const handleLogout = async () => {
     const token = localStorage.getItem("token");
@@ -93,7 +101,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       bg={useColorModeValue("white", "gray.900")}
       borderRight="1px"
       borderRightColor={useColorModeValue("gray.200", "gray.700")}
-      w={{ base: "full", md: 60 }}
+      w="full"
       pos="fixed"
       h="full"
       flexDirection="column"
@@ -108,9 +116,9 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
         </Flex>
         {LinkItems.map((link) => (
-          <NavItem key={link.name} {...link}>
+          <SidebarItem key={link.name} {...link}>
             {link.name}
-          </NavItem>
+          </SidebarItem>
         ))}
       </Box>
       <Box mb={4} mx={4} px={4}>
@@ -126,13 +134,33 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
           </MenuButton>
           <MenuList bg={useColorModeValue("white", "gray.900")} borderColor={useColorModeValue("gray.200", "gray.700")}>
             {isLoggedIn ? (
-              <MenuItem as={Button} onClick={() => handleLogout()}>
+              <MenuItem
+                as={Button}
+                onClick={() => {
+                  onClose();
+                  handleLogout();
+                }}
+              >
                 Logout
               </MenuItem>
             ) : (
               <>
-                <MenuItem onClick={() => navigate("/login")}>Login</MenuItem>
-                <MenuItem onClick={() => navigate("/register")}>Register</MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    onClose();
+                    navigate("/login");
+                  }}
+                >
+                  Login
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    onClose();
+                    navigate("/register");
+                  }}
+                >
+                  Register
+                </MenuItem>
               </>
             )}
           </MenuList>
@@ -142,12 +170,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   );
 };
 
-interface NavItemProps extends FlexProps {
+interface SidebarItemProps extends FlexProps {
   icon: IconType;
   children: string;
   href?: string;
 }
-const NavItem = ({ href = "#", icon, children, ...rest }: NavItemProps) => {
+const SidebarItem = ({ href = "#", icon, children, ...rest }: SidebarItemProps) => {
   return (
     <Link href={href} style={{ textDecoration: "none" }} _focus={{ boxShadow: "none" }}>
       <Flex
@@ -182,10 +210,16 @@ const NavItem = ({ href = "#", icon, children, ...rest }: NavItemProps) => {
 interface MobileProps extends FlexProps {
   onOpen: () => void;
 }
-const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
+const SidebarButton = ({ onOpen, ...rest }: MobileProps) => {
   return (
-    <Box display={{ base: "flex", md: "none" }} position="fixed" top={4} left={4} zIndex={1000} {...rest}>
-      <IconButton variant="outline" aria-label="open menu" icon={<MenuIcon />} onClick={onOpen} />
+    <Box position="fixed" bottom={4} left={4} zIndex={1000} {...rest}>
+      <IconButton
+        backgroundColor="white"
+        aria-label="open menu"
+        isRound
+        icon={<DotsVerticalIcon height={25} width={25} />}
+        onClick={onOpen}
+      />
     </Box>
   );
 };
