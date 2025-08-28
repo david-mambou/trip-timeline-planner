@@ -20,7 +20,14 @@ import {
   MenuList,
   Button,
 } from "@chakra-ui/react";
-import { ChevronDownIcon, DotsVerticalIcon, GlobeAltIcon, UserCircleIcon } from "@heroicons/react/outline";
+import {
+  ChevronDownIcon,
+  DotsVerticalIcon,
+  GlobeAltIcon,
+  LoginIcon,
+  UserAddIcon,
+  UserCircleIcon,
+} from "@heroicons/react/outline";
 import { IconType } from "react-icons";
 import { useNavigate } from "react-router-dom";
 import { useAuthStatus } from "~/javascript/context/AuthContext";
@@ -31,7 +38,6 @@ interface LinkItemProps {
   icon: IconType;
   href?: string;
 }
-const LinkItems: Array<LinkItemProps> = [{ name: "Trips", icon: GlobeAltIcon, href: "/trips" }];
 
 export default function SidebarWithHeader({ children }: { children: ReactNode }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -65,6 +71,12 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   const navigate = useNavigate();
   const isLoggedIn = useAuthStatus();
   const { user, setUser } = useCurrentUser();
+  const LinkItems: Array<LinkItemProps> = isLoggedIn
+    ? [{ name: "Trips", icon: GlobeAltIcon, href: "/trips" }]
+    : [
+        { name: "Login", icon: LoginIcon, href: "/login" },
+        { name: "Register", icon: UserAddIcon, href: "/register" },
+      ];
 
   const handleLogout = async () => {
     const token = localStorage.getItem("token");
