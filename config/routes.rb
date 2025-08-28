@@ -32,4 +32,7 @@ Rails.application.routes.draw do
     delete 'stops/:id/activities/:activity_id', to: 'stops#remove_activity'
     get 'stops/:id/activities', to: 'stops#list_activities'
   end
+  get '*path', to: 'site#index', constraints: ->(req) { !req.xhr? && req.format.html? }
 end
+
+

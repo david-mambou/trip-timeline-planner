@@ -5,6 +5,7 @@ import Trips from "./trips/Trips";
 import LoginForm from "./auth/LoginForm";
 import CreateUserForm from "./auth/CreateUserForm";
 import PrivateRoute from "./routes/PrivateRoute";
+import NotFound from "./routes/NotFound";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="trips/:id/*" element={<TripPage />} />
         <Route path="trips" element={<Trips />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
