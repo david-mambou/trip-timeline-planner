@@ -1,4 +1,4 @@
-import { Button, SimpleGrid } from "@chakra-ui/react";
+import { Button, Heading, SimpleGrid } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import TripCard from "./TripCard";
@@ -38,6 +38,7 @@ export default function Trips() {
 
   return (
     <>
+      <Heading mb={4}>Trips</Heading>
       <SimpleGrid alignItems="center" columns={{ base: 1, md: 2, lg: 4 }} spacing={8}>
         {trips.map((trip, idx) => (
           <TripCard key={idx} trip={trip} />
