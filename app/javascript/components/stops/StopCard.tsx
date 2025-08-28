@@ -6,6 +6,8 @@ import {
   Flex,
   Heading,
   HStack,
+  SimpleGrid,
+  Stack,
   Tag,
   TagCloseButton,
   TagLabel,
@@ -64,41 +66,45 @@ export default function StopCard({ stop, nextStopId, stay, activities, transfer,
     <>
       <Card bg="white" w="70%">
         <CardBody>
-          <Flex>
-            <Box p="4" w="100%" textAlign="right">
-              <Heading size="md">{stop.name}</Heading>
-              <Text>{`${stop.startDay} to ${stop.endDay}`}</Text>
-              <Text>Staying at {stay?.name}</Text>
-              <Box mt={2}>
-                <Heading size="sm">Activities</Heading>
-                {activities?.map((activity) => (
-                  <Tag key={activity.id} ml={1}>
-                    <TagLabel>{activity.name}</TagLabel>
-                    <TagCloseButton onClick={() => removeActivity(stop.id, activity.id)} />
-                  </Tag>
-                ))}
-              </Box>
-              <HStack justify={"right"} mt={4}>
-                <Button
-                  colorScheme="blue"
-                  leftIcon={<PlusCircleIcon height={18} width={18} />}
-                  whiteSpace="normal"
-                  onClick={() => navigate(`./stops/${stop.id}/activities/add`)}
-                >
-                  Add activity
-                </Button>
-                <Button
-                  colorScheme="red"
-                  ml={2}
-                  leftIcon={<TrashIcon height={18} width={18} />}
-                  whiteSpace="normal"
-                  onClick={() => deleteStop(stop.id)}
-                >
-                  Delete stop
-                </Button>
-              </HStack>
+          <Box p="4" w="100%" textAlign="right">
+            <Heading size="md">{stop.name}</Heading>
+            <Text>{`${stop.startDay} to ${stop.endDay}`}</Text>
+            <Text>Staying at {stay?.name}</Text>
+            <Box mt={2}>
+              <Heading size="sm">Activities</Heading>
+              {activities?.map((activity) => (
+                <Tag key={activity.id} ml={1}>
+                  <TagLabel>{activity.name}</TagLabel>
+                  <TagCloseButton onClick={() => removeActivity(stop.id, activity.id)} />
+                </Tag>
+              ))}
             </Box>
-          </Flex>
+            <Stack
+              align="center"
+              direction={{ base: "column", md: "row" }}
+              justify={{ base: "center", md: "flex-end" }}
+              mt={4}
+              spacing={2}
+              w="100%"
+            >
+              <Button
+                colorScheme="blue"
+                leftIcon={<PlusCircleIcon height={18} width={18} />}
+                whiteSpace="normal"
+                onClick={() => navigate(`./stops/${stop.id}/activities/add`)}
+              >
+                Add activity
+              </Button>
+              <Button
+                colorScheme="red"
+                leftIcon={<TrashIcon height={18} width={18} />}
+                whiteSpace="normal"
+                onClick={() => deleteStop(stop.id)}
+              >
+                Delete stop
+              </Button>
+            </Stack>
+          </Box>
         </CardBody>
       </Card>
       {transfer ? (
