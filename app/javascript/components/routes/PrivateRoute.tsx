@@ -1,7 +1,7 @@
-import { Spinner } from "@chakra-ui/react";
 import { useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useCurrentUser } from "~/javascript/context/AuthContext";
+import LoadingPage from "./LoadingPage";
 
 export default function PrivateRoute() {
   const { user, loading } = useCurrentUser();
@@ -15,7 +15,7 @@ export default function PrivateRoute() {
   }, [user, loading, navigate]);
 
   if (loading) {
-    return <Spinner />;
+    return <LoadingPage />;
   }
 
   if (!user) {
