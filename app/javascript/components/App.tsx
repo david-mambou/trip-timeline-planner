@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import TripForm from "./trips/TripForm";
 import TripPage from "./trips/TripPage";
 import Trips from "./trips/Trips";
@@ -11,6 +11,7 @@ export default function App() {
     <Routes>
       <Route path="login" element={<LoginForm />} />
       <Route path="register" element={<CreateUserForm />} />
+      <Route path="/" element={<Navigate to="/trips" />} />
       <Route element={<PrivateRoute />}>
         <Route path="trips/new" element={<TripForm inputMode="create" />} />
         <Route path="trips/:id/*" element={<TripPage />} />
