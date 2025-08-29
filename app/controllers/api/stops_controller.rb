@@ -1,6 +1,7 @@
 class Api::StopsController < Api::BaseController
   protect_from_forgery with: :null_session
   skip_before_action :verify_authenticity_token
+  before_action :set_stop, only: %i(add_activity list_activities show update destroy)
 
   def list_per_trip
     @stops = Stop.where(trip_id: params[:trip_id])
@@ -8,11 +9,14 @@ class Api::StopsController < Api::BaseController
   end
 
   def list_activities
-    @stop = Stop.find(params[:id])
     @activities = @stop.activities
     render json: @activities
   end
 
+  def show
+    render json: @stop
+  end
+  
   def create
     @stop = Stop.new(sanitized_params)
 
@@ -23,8 +27,13 @@ class Api::StopsController < Api::BaseController
     end
   end
 
+  def update
+    @stop.update!(sanitized_params)
+    rescue ActiveRecord::RecordInvalid => e
+      render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
+  end
+
   def add_activity
-    @stop = Stop.find(params[:id])
     @stop.activities << Activity.find(add_remove_activity_params[:activity_id])
 
     if @stop.save
@@ -35,7 +44,6 @@ class Api::StopsController < Api::BaseController
   end
 
   def remove_activity
-    @stop = Stop.find(params[:id])
     activity = Activity.find(add_remove_activity_params[:activity_id])
     @stop.activities.delete(activity) if activity
 
@@ -52,6 +60,10 @@ class Api::StopsController < Api::BaseController
   end
 
   private
+
+  def set_stop
+    @stop = Stop.find(params[:id])
+  end
 
   def add_remove_activity_params
     params.permit(:activity_id)

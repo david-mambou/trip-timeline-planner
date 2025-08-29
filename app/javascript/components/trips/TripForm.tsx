@@ -75,7 +75,6 @@ export default function TripForm({ trip, inputMode }: TripFormProps) {
       name: { value: string };
     };
     const errors = validateTrip({ name: target.name.value });
-    console.log(target.name.value);
 
     if (isEmptyObject(errors)) {
       inputMode === "create"
