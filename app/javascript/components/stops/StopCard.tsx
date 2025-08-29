@@ -5,8 +5,6 @@ import {
   CardBody,
   Flex,
   Heading,
-  HStack,
-  SimpleGrid,
   Stack,
   Tag,
   TagCloseButton,
@@ -16,7 +14,7 @@ import {
 import type { Activity, Stay, Stop, Transfer } from "../trips/TripPage";
 import { useNavigate } from "react-router-dom";
 import TransferCard from "../trips/TransferCard";
-import { PlusCircleIcon, QuestionMarkCircleIcon, TrashIcon } from "@heroicons/react/outline";
+import { PencilAltIcon, PlusCircleIcon, QuestionMarkCircleIcon, TrashIcon } from "@heroicons/react/outline";
 
 export type StopCardProps = {
   stop: Stop;
@@ -94,6 +92,14 @@ export default function StopCard({ stop, nextStopId, stay, activities, transfer,
                 onClick={() => navigate(`./stops/${stop.id}/activities/add`)}
               >
                 Add activity
+              </Button>
+              <Button
+                colorScheme="blackAlpha"
+                leftIcon={<PencilAltIcon height={18} width={18} />}
+                whiteSpace="normal"
+                onClick={() => navigate(`./stops/${stop.id}/edit`)}
+              >
+                Edit stop
               </Button>
               <Button
                 colorScheme="red"

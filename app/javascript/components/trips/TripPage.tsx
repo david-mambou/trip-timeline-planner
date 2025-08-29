@@ -69,7 +69,7 @@ export default function TripPage() {
       console.error(error);
     }
     try {
-      const response = await window.fetch(`/api/stops/${id}`, {
+      const response = await window.fetch(`/api/trips/${id}/stops`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       if (!response.ok) throw Error(response.statusText);
@@ -161,7 +161,8 @@ export default function TripPage() {
             }
           />
           <Route path="edit" element={<TripForm inputMode="update" trip={trip} />} />
-          <Route path="stops/new" element={<StopForm stays={stays} trip={trip} />} />
+          <Route path="stops/new" element={<StopForm inputMode="create" stays={stays} trip={trip} />} />
+          <Route path="stops/:stopId/edit" element={<StopForm inputMode="update" stays={stays} trip={trip} />} />
           <Route path="stops/:stopId/activities/add" element={<ActivityForm trip={trip} />} />
           <Route path="transfers/add" element={<TransferForm trip={trip} />} />
           <Route path="transfers/:transferId/edit" element={<TransferForm trip={trip} />} />
