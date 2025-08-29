@@ -322,7 +322,7 @@ Devise.setup do |config|
       ['DELETE', %r{^/logout$}],
       ['DELETE', %r{^/api/logout$}]
     ]
-    jwt.expiration_time = 10.minutes.to_i
+    jwt.expiration_time = 30.minutes.to_i
     jwt.algorithm = 'HS256'
   end
 end
