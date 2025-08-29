@@ -9,6 +9,7 @@ import camelcaseKeys from "camelcase-keys";
 import TripForm from "./TripForm";
 import TransferForm from "../transfers/TransferForm";
 import LoadingPage from "../routes/LoadingPage";
+import ErrorPage from "../routes/ErrorPage";
 
 export type Stop = {
   id: number;
@@ -140,7 +141,7 @@ export default function TripPage() {
   }
 
   if (isError) {
-    return <div>Error</div>;
+    return <ErrorPage />;
   }
 
   if (trip) {

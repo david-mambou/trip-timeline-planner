@@ -10,6 +10,7 @@ import CustomSelect from "../ui/CustomSelect";
 import LoadingPage from "../routes/LoadingPage";
 import camelcaseKeys from "camelcase-keys";
 import { format } from "date-fns";
+import ErrorPage from "../routes/ErrorPage";
 
 type StopFormProps = {
   trip: Trip;
@@ -142,7 +143,7 @@ export default function StopForm({ trip, stays, inputMode }: StopFormProps) {
   }
 
   if (isError) {
-    return <div>Error</div>;
+    return <ErrorPage />;
   }
 
   return (

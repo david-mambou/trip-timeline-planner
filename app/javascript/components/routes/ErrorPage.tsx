@@ -1,7 +1,7 @@
 import { Box, Button, Flex, Heading, Text, VStack } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 
-export default function NotFound() {
+export default function ErrorPage() {
   const navigate = useNavigate();
 
   return (
@@ -9,10 +9,10 @@ export default function NotFound() {
       <VStack spacing={6} textAlign="center">
         <Box>
           <Heading as="h1" fontSize={{ base: "6xl", md: "9xl" }} fontWeight="extrabold" color="gray.800">
-            404
+            Error
           </Heading>
           <Text fontSize="xl" color="gray.600" mt={2}>
-            Oops! The page you’re looking for doesn’t exist.
+            There was an error while loading this page.
           </Text>
         </Box>
 

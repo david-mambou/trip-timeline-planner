@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import TripCard from "./TripCard";
 import { PlusCircleIcon } from "@heroicons/react/outline";
+import ErrorPage from "../routes/ErrorPage";
+import LoadingPage from "../routes/LoadingPage";
 
 export type Trip = {
   id: number;
@@ -35,6 +37,14 @@ export default function Trips() {
 
     fetchData();
   }, [location.key]);
+
+  if (isLoading) {
+    return <LoadingPage />;
+  }
+
+  if (isError) {
+    return <ErrorPage />;
+  }
 
   return (
     <>
