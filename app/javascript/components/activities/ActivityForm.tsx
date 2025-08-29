@@ -6,6 +6,7 @@ import { Activity } from "../trips/TripPage";
 import { Trip } from "../trips/Trips";
 import CustomInput from "../ui/CustomInput";
 import CustomSelect from "../ui/CustomSelect";
+import ErrorPage from "../routes/ErrorPage";
 
 type ActivityFormProps = {
   trip: Trip;
@@ -112,7 +113,7 @@ export default function ActivityForm({ trip }: ActivityFormProps) {
   }, []);
 
   if (isError) {
-    return <div>Error</div>;
+    return <ErrorPage />;
   }
 
   return (

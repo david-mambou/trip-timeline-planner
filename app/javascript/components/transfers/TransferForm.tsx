@@ -10,6 +10,7 @@ import { format } from "date-fns";
 import CustomInput from "../ui/CustomInput";
 import CustomSelect from "../ui/CustomSelect";
 import LoadingPage from "../routes/LoadingPage";
+import ErrorPage from "../routes/ErrorPage";
 
 type TransferFormProps = {
   trip: Trip;
@@ -171,7 +172,7 @@ export default function TransferForm({ trip }: TransferFormProps) {
   }
 
   if (isError) {
-    return <div>Error</div>;
+    return <ErrorPage />;
   }
 
   return (
