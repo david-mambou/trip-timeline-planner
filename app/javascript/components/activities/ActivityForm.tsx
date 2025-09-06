@@ -122,6 +122,7 @@ export default function ActivityForm({ trip }: ActivityFormProps) {
         Add activity
       </Heading>
       <form onSubmit={handleSubmit}>
+        <label htmlFor="activityId">Activity</label>
         <CustomSelect value={selectedActivity} onChange={(e) => setSelectedActivity(parseInt(e.target.value))}>
           {activities &&
             activities.map((activity, i) => (

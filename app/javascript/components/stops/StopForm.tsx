@@ -19,6 +19,7 @@ type StopFormProps = {
 };
 
 type CreateStopRequest = Omit<Stop, "id">;
+type CreateStayRequest = Omit<Stay, "id">;
 
 export default function StopForm({ trip, stays, inputMode }: StopFormProps) {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ export default function StopForm({ trip, stays, inputMode }: StopFormProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const [stop, setStop] = useState<Stop>();
+  const [selectedStay, setSelectedStay] = useState(0);
   const { stopId } = useParams();
 
   useEffect(() => {
@@ -43,6 +45,7 @@ export default function StopForm({ trip, stays, inputMode }: StopFormProps) {
         const data = await response.json();
         const camelcasedData = camelcaseKeys(data);
         setStop(camelcasedData);
+        setSelectedStay(camelcasedData.stayId || 0);
       } catch (error) {
         setIsError(true);
         console.error(error);
@@ -52,6 +55,25 @@ export default function StopForm({ trip, stays, inputMode }: StopFormProps) {
 
     fetchData();
   }, [stopId]);
+
+  const createStay = async (stay: CreateStayRequest) => {
+    try {
+      const response = await window.fetch("/api/stays", {
+        method: "POST",
+        body: JSON.stringify(stay),
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) throw Error(response.statusText);
+      const newStay = await response.json();
+      return newStay;
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const createStop = async (stop: CreateStopRequest) => {
     const snakecasedStop = snakecaseKeys(stop);
@@ -110,6 +132,8 @@ export default function StopForm({ trip, stays, inputMode }: StopFormProps) {
       stayId: { value: number };
       startDay: { value: string };
       endDay: { value: string };
+      stayName: { value: string };
+      stayPrice: { value: number };
     };
     const errors = validateStop({
       name: target.name.value,
@@ -120,20 +144,33 @@ export default function StopForm({ trip, stays, inputMode }: StopFormProps) {
     });
 
     if (isEmptyObject(errors)) {
+      let newStay;
+      if (selectedStay === 0) {
+        const stayName = target.stayName.value;
+        const stayPrice = target.stayPrice.value;
+        if (stayName.length < 1) {
+          window.alert("Stay name must be at least one character");
+          return;
+        }
+        newStay = await createStay({
+          name: stayName,
+          price: stayPrice,
+        });
+      }
       inputMode === "create"
         ? createStop({
             name: target.name.value,
             tripId: trip.id,
             startDay: new Date(target.startDay.value),
             endDay: new Date(target.endDay.value),
-            stayId: target.stayId.value,
+            stayId: newStay?.id || target.stayId.value,
           })
         : updateStop({
             name: target.name.value,
             tripId: trip.id,
             startDay: new Date(target.startDay.value),
             endDay: new Date(target.endDay.value),
-            stayId: target.stayId.value,
+            stayId: newStay?.id || target.stayId.value,
           });
     }
   };
@@ -159,7 +196,7 @@ export default function StopForm({ trip, stays, inputMode }: StopFormProps) {
         <label htmlFor="endDay">End</label>
         <CustomInput defaultValue={stop && format(stop.endDay, "yyyy-MM-dd")} name="endDay" type="date" />
         <label htmlFor="stay">Stay</label>
-        <CustomSelect defaultValue={stop?.stayId} name="stayId">
+        <CustomSelect value={selectedStay} onChange={(e) => setSelectedStay(parseInt(e.target.value))} name="stayId">
           {stays.map((stay, i) => (
             <option key={i} value={stay.id}>
               {stay.name}
@@ -167,6 +204,14 @@ export default function StopForm({ trip, stays, inputMode }: StopFormProps) {
           ))}
           <option value={0}>Other...</option>
         </CustomSelect>
+        {selectedStay === 0 && (
+          <>
+            <label htmlFor="stayName">Stay name</label>
+            <CustomInput name="stayName" />
+            <label htmlFor="stayPrice">Price</label>
+            <CustomInput name="stayPrice" />
+          </>
+        )}
         <HStack justify="space-between" mt={4} mb={4}>
           <Button colorScheme="blackAlpha" onClick={() => navigate(inputMode === "create" ? "./../.." : "./../../..")}>
             Back to trip

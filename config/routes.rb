@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     get 'stops/:id/activities', to: 'stops#list_activities'
     resources :stops, only: %i(show create update destroy)
     resources :transfers, only: %i(index show create update destroy)
-    resources :stays, only: %i(index)
+    resources :stays, only: %i(index create)
     resources :activities, only: %i(index create)
     resources :stops_activities, only: %i(index)
     resources :trips, only: %i(index show create update destroy)
