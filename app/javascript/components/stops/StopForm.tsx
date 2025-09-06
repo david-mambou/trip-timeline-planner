@@ -27,7 +27,7 @@ export default function StopForm({ trip, stays, inputMode }: StopFormProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const [stop, setStop] = useState<Stop>();
-  const [selectedStay, setSelectedStay] = useState(stop?.stayId || 0);
+  const [selectedStay, setSelectedStay] = useState(0);
   const { stopId } = useParams();
 
   useEffect(() => {
@@ -45,6 +45,7 @@ export default function StopForm({ trip, stays, inputMode }: StopFormProps) {
         const data = await response.json();
         const camelcasedData = camelcaseKeys(data);
         setStop(camelcasedData);
+        setSelectedStay(camelcasedData.stayId || 0);
       } catch (error) {
         setIsError(true);
         console.error(error);
@@ -195,12 +196,7 @@ export default function StopForm({ trip, stays, inputMode }: StopFormProps) {
         <label htmlFor="endDay">End</label>
         <CustomInput defaultValue={stop && format(stop.endDay, "yyyy-MM-dd")} name="endDay" type="date" />
         <label htmlFor="stay">Stay</label>
-        <CustomSelect
-          defaultValue={stop?.stayId}
-          value={selectedStay}
-          onChange={(e) => setSelectedStay(parseInt(e.target.value))}
-          name="stayId"
-        >
+        <CustomSelect value={selectedStay} onChange={(e) => setSelectedStay(parseInt(e.target.value))} name="stayId">
           {stays.map((stay, i) => (
             <option key={i} value={stay.id}>
               {stay.name}
